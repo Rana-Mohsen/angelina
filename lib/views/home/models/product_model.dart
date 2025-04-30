@@ -8,7 +8,7 @@ class ProductModel {
     final String price;
     final bool onSale;
     final List<Category> categories;
-    final List<Image> images;
+    final List<ProductImage> images;
     final String stockStatus;
     final bool hasOptions;
 
@@ -35,7 +35,7 @@ class ProductModel {
         price: json["price"],
         onSale: json["on_sale"],
         categories: List<Category>.from(json["categories"].map((x) => Category.fromJson(x))),
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: List<ProductImage>.from(json["images"].map((x) => ProductImage.fromJson(x))),
         stockStatus: json["stock_status"],
         hasOptions: json["has_options"],
     );
@@ -49,7 +49,7 @@ class ProductModel {
         "price": price,
         "on_sale": onSale,
         "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "Products": List<dynamic>.from(images.map((x) => x.toJson())),
         "stock_status": stockStatus,
         "has_options": hasOptions,
     };
@@ -75,7 +75,7 @@ class Category {
     };
 }
 
-class Image {
+class ProductImage {
     final int id;
     final DateTime dateCreated;
     final DateTime dateCreatedGmt;
@@ -85,7 +85,7 @@ class Image {
     final String name;
     final String alt;
 
-    Image({
+    ProductImage({
         required this.id,
         required this.dateCreated,
         required this.dateCreatedGmt,
@@ -96,7 +96,7 @@ class Image {
         required this.alt,
     });
 
-    factory Image.fromJson(Map<String, dynamic> json) => Image(
+    factory ProductImage.fromJson(Map<String, dynamic> json) => ProductImage(
         id: json["id"],
         dateCreated: DateTime.parse(json["date_created"]),
         dateCreatedGmt: DateTime.parse(json["date_created_gmt"]),

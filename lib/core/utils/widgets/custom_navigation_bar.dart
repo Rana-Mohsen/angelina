@@ -41,7 +41,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
 
   Widget _navbar() {
     return Container(
-      height: 65,
+      height: 8.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [

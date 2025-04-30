@@ -8,16 +8,16 @@ import 'package:dio/dio.dart';
 
 class ProductsApi {
   final Api _api;
-  final String baseUrl = "https://zbooma.com/furniture_api/products/";
+  final String baseUrl = "https://angelinashop2025.com/wp-json/wc/v3/products";
 
   ProductsApi(this._api);
 
   Future<Either<Failures, List<ProductModel>>> getProducts() async {
     try {
-      var data = await _api.get(url: "${baseUrl}get_products.php");
+      var data = await _api.get(url: "$baseUrl?category=20&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac");
 
       List<ProductModel> products = [];
-      for (var ctg in data['products']) {
+      for (var ctg in data) {
         var product = ProductModel.fromJson(ctg);
         products.add(product);
       }

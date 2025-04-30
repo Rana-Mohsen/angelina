@@ -2,12 +2,13 @@ import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/core/utils/font_styles.dart';
 import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
+import 'package:angelina/views/home/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomHomeItem extends StatefulWidget {
-  const CustomHomeItem({super.key});
-
+  const CustomHomeItem({super.key, required this.product});
+  final ProductModel product;
   @override
   State<CustomHomeItem> createState() => _CustomHomeItemState();
 }
@@ -42,7 +43,7 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
               borderRadius: BorderRadius.circular(16),
 
               image: DecorationImage(
-                image: AssetImage(Assets.product),
+                image: NetworkImage(widget.product.images[0].src),
                 fit: BoxFit.cover,
               ),
             ),
@@ -52,17 +53,17 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
             ),
           ),
           Text(
-            "LANEMAY تونر منعش بفيتامين A – 100 مل",
+            widget.product.name,
             textAlign: TextAlign.center,
             style: FontStyles.textStyle10,
           ),
           Text(
-            "عناية",
+            widget.product.categories[0].name,
             textAlign: TextAlign.center,
             style: TextStyle(color: Color(0xffA7A8A7), fontSize: 10),
           ),
           Text(
-            "ر.س28,00",
+            "ر.س${widget.product.price}",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(kGreenColor),
