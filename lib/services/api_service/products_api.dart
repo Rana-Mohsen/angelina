@@ -1,4 +1,5 @@
 
+import 'package:angelina/constants.dart';
 import 'package:angelina/errors/failures.dart';
 import 'package:angelina/errors/server_failure.dart';
 import 'package:angelina/services/api_service/api.dart';
@@ -8,8 +9,6 @@ import 'package:dio/dio.dart';
 
 class ProductsApi {
   final Api _api;
-  final String baseUrl = "https://angelinashop2025.com/wp-json/wc/v3/products";
-
   ProductsApi(this._api);
 
   Future<Either<Failures, List<ProductModel>>> getProducts() async {

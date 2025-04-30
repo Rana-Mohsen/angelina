@@ -26,21 +26,24 @@ class MyApp extends StatelessWidget {
               create: (context) => ProductsCubit(ProductsApi(Api(Dio()))),
             ),
           ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
-              fontFamily: 'ElMessiri',
-              appBarTheme: const AppBarTheme(
-                centerTitle: true,
-                scrolledUnderElevation: 0,
-                backgroundColor: Colors.transparent,
-                systemOverlayStyle: SystemUiOverlayStyle(
-                  statusBarIconBrightness: Brightness.dark,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                scaffoldBackgroundColor: Colors.white,
+                fontFamily: 'ElMessiri',
+                appBarTheme: const AppBarTheme(
+                  centerTitle: true,
+                  scrolledUnderElevation: 0,
+                  backgroundColor: Colors.transparent,
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarIconBrightness: Brightness.dark,
+                  ),
                 ),
               ),
+              home: const CustomNavigationBar(),
             ),
-            home: const CustomNavigationBar(),
           ),
         );
       },

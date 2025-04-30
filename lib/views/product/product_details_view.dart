@@ -12,31 +12,33 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   int idx = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
-
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Positioned(
-            top: 10.h,
-            child: SizedBox(
-              width: 100.w,
-              height: 45.h,
-              child: Row(
-                children: [
-                
-                  // const Flexible(child: FittedBox(child: ImageView())),
-                ],
+    return Scaffold(
+      body: Container(
+      
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Positioned(
+              top: 10.h,
+              child: SizedBox(
+                width: 100.w,
+                height: 45.h,
+                child: Row(
+                  children: [
+                  
+                    // const Flexible(child: FittedBox(child: ImageView())),
+                  ],
+                ),
               ),
             ),
-          ),
-          // Positioned(top: 5.h, child: HomeAppBar(item: widget.item)),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: ItemDetails(item: widget.item),
-          // ),
-         
-        ],
+            // Positioned(top: 5.h, child: HomeAppBar(item: widget.item)),
+            // Align(
+            //   alignment: Alignment.bottomCenter,
+            //   child: ItemDetails(item: widget.item),
+            // ),
+           
+          ],
+        ),
       ),
     );
   }
