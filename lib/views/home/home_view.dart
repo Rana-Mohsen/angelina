@@ -17,19 +17,25 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Image.asset(Assets.logo), centerTitle: true),
+      appBar: AppBar(
+        title: Image.asset(Assets.logo),
+        centerTitle: true,
+        actions: [
+          Icon(Icons.search),
+          SizedBox(width: 20),
+          Icon(Icons.shopping_cart_outlined),
+        ],
+        actionsPadding: EdgeInsets.only(right: 16),
+      ),
       drawer: HomeDrawer(),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              CustomSlider(),
-              CustomCategoryListview(),
-              // CustomHomeItem(),
-              CustomHomeGrid(),
-            ],
-          ),
+        child: Column(
+          children: [
+            CustomSlider(),
+            CustomCategoryListview(),
+            // CustomHomeItem(),
+            CustomHomeGrid(),
+          ],
         ),
       ),
     );

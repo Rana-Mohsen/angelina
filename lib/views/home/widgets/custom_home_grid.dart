@@ -1,4 +1,5 @@
 import 'package:angelina/views/home/widgets/custom_home_item.dart';
+import 'package:angelina/views/product/product_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -16,14 +17,23 @@ class _CustomHomeGridState extends State<CustomHomeGrid> {
       height: 200.h,
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.all(16),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 1 / 1.6,
+          childAspectRatio: .51,
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
           crossAxisCount: 2,
         ),
         itemBuilder: (context, index) {
-          return CustomHomeItem();
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProductDetailsView()),
+              );
+            },
+            child: CustomHomeItem(),
+          );
         },
       ),
     );

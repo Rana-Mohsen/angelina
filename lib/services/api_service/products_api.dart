@@ -1,0 +1,33 @@
+
+import 'package:angelina/errors/failures.dart';
+import 'package:angelina/errors/server_failure.dart';
+import 'package:angelina/services/api_service/api.dart';
+import 'package:angelina/views/home/models/product_model.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+
+class ProductsApi {
+  final Api _api;
+  final String baseUrl = "https://zbooma.com/furniture_api/products/";
+
+  ProductsApi(this._api);
+
+  Future<Either<Failures, List<ProductModel>>> getProducts() async {
+    try {
+      var data = await _api.get(url: "${baseUrl}get_products.php");
+
+      List<ProductModel> products = [];
+      for (var ctg in data['products']) {
+        var product = ProductModel.fromJson(ctg);
+        products.add(product);
+      }
+      return right(products);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+
+      return left(ServerFailure(e.toString()));
+    }
+  }
+}

@@ -19,18 +19,21 @@ class _CustomCategoryListviewState extends State<CustomCategoryListview> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 15.h,
-      child: ListView.separated(
-        reverse: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: categoryItems.length,
-        itemBuilder: (context, index) {
-          return CustomCategory(item: categoryItems[index]);
-        },
-        separatorBuilder: (context, index) {
-          return SizedBox(width: 5.w); // Adjust spacing as needed
-        },
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: SizedBox(
+        height: 15.h,
+        child: ListView.separated(
+          reverse: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: categoryItems.length,
+          itemBuilder: (context, index) {
+            return CustomCategory(item: categoryItems[index]);
+          },
+          separatorBuilder: (context, index) {
+            return SizedBox(width: 5.w); // Adjust spacing as needed
+          },
+        ),
       ),
     );
   }
