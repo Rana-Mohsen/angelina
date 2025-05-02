@@ -2,8 +2,8 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/errors/failures.dart';
 import 'package:angelina/errors/server_failure.dart';
+import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/services/api_service/api.dart';
-import 'package:angelina/views/home/models/product_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 

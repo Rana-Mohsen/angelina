@@ -33,7 +33,7 @@ class _CustomFavoriteIconState extends State<CustomFavoriteIcon> {
           child: Icon(
             isFav == true ? Icons.favorite : Icons.favorite_border_outlined,
             size: widget.size,
-            color: Color(kGreenColor),
+            color:kGreenColor,
           ),
         ),
       ),

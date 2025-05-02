@@ -2,7 +2,7 @@ import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/core/utils/font_styles.dart';
 import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
-import 'package:angelina/views/home/models/product_model.dart';
+import 'package:angelina/models/home/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -63,10 +63,11 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
             style: TextStyle(color: Color(0xffA7A8A7), fontSize: 10),
           ),
           Text(
-            "ر.س${widget.product.price}",
+            "${widget.product.price}ر.س",
+            textDirection: TextDirection.rtl,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(kGreenColor),
+              color: kGreenColor,
               fontSize: 11,
               fontWeight: FontWeight.w700,
             ),
@@ -74,7 +75,7 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
           TextButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor: WidgetStatePropertyAll(Color(kGreenColor)),
+              backgroundColor: WidgetStatePropertyAll(kGreenColor),
             ),
             child: Text(
               "تحديد احد الخيارات",

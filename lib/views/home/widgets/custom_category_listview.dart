@@ -1,12 +1,13 @@
 import 'package:angelina/core/utils/assets.dart';
-import 'package:angelina/views/home/models/category_item_model.dart';
+import 'package:angelina/models/category/category_model.dart';
+import 'package:angelina/models/home/category_item_model.dart';
 import 'package:angelina/views/home/widgets/custom_category.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomCategoryListview extends StatefulWidget {
-  const CustomCategoryListview({super.key});
-
+  const CustomCategoryListview({super.key, required this.categories});
+  final List<CategoryModel> categories;
   @override
   State<CustomCategoryListview> createState() => _CustomCategoryListviewState();
 }
@@ -19,16 +20,17 @@ class _CustomCategoryListviewState extends State<CustomCategoryListview> {
 
   @override
   Widget build(BuildContext context) {
+    var ctg = widget.categories;
     return Padding(
-      padding: const EdgeInsets.only(right: 16),
+      padding: const EdgeInsets.only(right: 16, top: 15, bottom: 15),
       child: SizedBox(
-        height: 15.h,
+        height: 12.5.h,
         child: ListView.separated(
           reverse: true,
           scrollDirection: Axis.horizontal,
-          itemCount: categoryItems.length,
+          itemCount: ctg.length,
           itemBuilder: (context, index) {
-            return CustomCategory(item: categoryItems[index]);
+            return CustomCategory(item: ctg[index]);
           },
           separatorBuilder: (context, index) {
             return SizedBox(width: 5.w); // Adjust spacing as needed

@@ -1,5 +1,5 @@
 import 'package:angelina/core/utils/assets.dart';
-import 'package:angelina/views/home/models/slider_item_model.dart';
+import 'package:angelina/models/home/slider_item_model.dart';
 import 'package:angelina/views/home/widgets/custom_slider_item.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -19,22 +19,19 @@ class _CustomSliderState extends State<CustomSlider> {
   ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 29.h,
-      width: 100.w,
-      child: CarouselSlider.builder(
-        itemCount: sliderItems.length,
-        itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
-          return CustomSliderItem(item: sliderItems[itemIndex]);
-        },
-        options: CarouselOptions(
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlay: true,
-          // enlargeCenterPage: true,
-          viewportFraction: 1,
-          enableInfiniteScroll: false,
-          initialPage: 0,
-        ),
+    return CarouselSlider.builder(
+      itemCount: sliderItems.length,
+      itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex) {
+        return CustomSliderItem(item: sliderItems[itemIndex]);
+      },
+      options: CarouselOptions(
+        aspectRatio: 100.w / 21.h,
+        autoPlayInterval: const Duration(seconds: 3),
+        autoPlay: true,
+        // enlargeCenterPage: true,
+        viewportFraction: 1,
+        enableInfiniteScroll: false,
+        initialPage: 0,
       ),
     );
   }

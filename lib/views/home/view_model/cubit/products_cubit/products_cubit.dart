@@ -1,5 +1,5 @@
+import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/services/api_service/products_api.dart';
-import 'package:angelina/views/home/models/product_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 

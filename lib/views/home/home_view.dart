@@ -1,5 +1,7 @@
 import 'package:angelina/core/utils/assets.dart';
-import 'package:angelina/views/home/models/product_model.dart';
+import 'package:angelina/models/category/category_model.dart';
+import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_category_listview.dart';
 import 'package:angelina/views/home/widgets/custom_home_grid.dart';
@@ -20,6 +22,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
+     if (BlocProvider.of<CategoriesCubit>(context).ctgList.isEmpty) {
+      BlocProvider.of<CategoriesCubit>(context).getCategories();
+    }
     if (BlocProvider.of<ProductsCubit>(context).productList.isEmpty) {
       BlocProvider.of<ProductsCubit>(context).getProducts();
     }
@@ -46,8 +51,20 @@ class _HomeViewState extends State<HomeView> {
             child: Column(
               children: [
                 CustomSlider(),
-                CustomCategoryListview(),
-                // CustomHomeItem(),
+                //CustomCategoryListview(),
+                BlocBuilder<CategoriesCubit, CategoriesState>(
+              builder: (context, state) {
+                if (state is CategoriesLoading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state is CategoriesError) {
+                  return Text(state.errMessage);
+                }
+                List<CategoryModel> categories =
+                    BlocProvider.of<CategoriesCubit>(context).ctgList;
+
+                return CustomCategoryListview(categories: categories);
+              },
+            ),
               ],
             ),
           ),

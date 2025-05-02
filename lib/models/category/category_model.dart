@@ -5,7 +5,7 @@ class CategoryModel {
     final String name;
     final String description;
     final String display;
-    final String image;
+    final String? image;
     final int count;
 
     CategoryModel({

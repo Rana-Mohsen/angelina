@@ -1,4 +1,3 @@
-
 import 'package:angelina/constants.dart';
 import 'package:angelina/errors/failures.dart';
 import 'package:angelina/errors/server_failure.dart';
@@ -12,12 +11,20 @@ class CategoryApi {
 
   CategoryApi(this._api);
 
-  Future<Either<Failures, dynamic>> getCategories() async {
+  Future<Either<Failures, dynamic>> fetchCategories() async {
     try {
-      var data = await _api.get(url: "$baseUrl/categories?consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac");
+      var data = await _api.get(
+        url:
+            "$baseUrl/categories?consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+      );
+      print(
+        "$baseUrl/categories?consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+      );
+
       List<CategoryModel> categories = [];
       for (var ctg in data) {
         categories.add(CategoryModel.fromJson(ctg));
+        print(CategoryModel.fromJson(ctg).image.toString());
       }
       return right(categories);
     } catch (e) {

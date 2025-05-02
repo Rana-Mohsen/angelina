@@ -1,4 +1,4 @@
-import 'package:angelina/views/home/models/product_model.dart';
+import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/home/widgets/custom_home_item.dart';
 import 'package:angelina/views/product/product_details_view.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,11 @@ class _CustomHomeGridState extends State<CustomHomeGrid> {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProductDetailsView()),
+              MaterialPageRoute(
+                builder:
+                    (context) =>
+                        ProductDetailsView(product: widget.products[index]),
+              ),
             );
           },
           child: CustomHomeItem(product: widget.products[index]),

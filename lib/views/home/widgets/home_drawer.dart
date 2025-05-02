@@ -1,4 +1,4 @@
-import 'package:angelina/views/home/models/drawer_item_model.dart';
+import 'package:angelina/models/home/drawer_item_model.dart';
 import 'package:angelina/views/home/widgets/custom_drawer_header.dart';
 import 'package:angelina/views/home/widgets/custom_drawer_listview.dart';
 import 'package:flutter/material.dart';
