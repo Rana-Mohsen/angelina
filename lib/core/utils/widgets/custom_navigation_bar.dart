@@ -1,3 +1,4 @@
+import 'package:angelina/views/favourite/favorite_view.dart';
 import 'package:angelina/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -20,7 +21,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   int selectedIndex = 0;
   List<Widget> pages = const [
     HomeView(),
-    Text("favourit"),
+    FavoriteView(),
     Text("cart"),
     Text("profile"),
   ];

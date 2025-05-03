@@ -2,6 +2,7 @@ import 'package:angelina/core/utils/widgets/custom_navigation_bar.dart';
 import 'package:angelina/services/api_service/api.dart';
 import 'package:angelina/services/api_service/category.api.dart';
 import 'package:angelina/services/api_service/products_api.dart';
+import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:device_preview/device_preview.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (context) => CategoriesCubit(CategoryApi(Api(Dio()))),
             ),
+            BlocProvider(create: (context) => FavoriteCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

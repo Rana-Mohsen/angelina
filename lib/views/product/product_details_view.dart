@@ -5,7 +5,7 @@ import 'package:angelina/core/utils/widgets/cusrom_add_remove.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/product/widgets/custom_app_bar.dart';
 import 'package:angelina/views/product/widgets/custom_product_slider.dart';
-import 'package:angelina/views/product/widgets/custom_rating.dart';
+import 'package:angelina/core/utils/widgets/custom_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -37,7 +37,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       imageList: widget.product.images,
                     ),
                   ),
-                  Positioned(top: 1.h, child: CustomAppBar()),
+                  Positioned(top: 1.h, child: CustomAppBar(product: widget.product,)),
                 ],
               ),
             ),

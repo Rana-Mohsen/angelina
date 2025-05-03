@@ -49,7 +49,7 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
             ),
             child: Align(
               alignment: Alignment.topCenter,
-              child: Row(children: [CustomFavoriteIcon()]),
+              child: Row(children: [CustomFavoriteIcon(product: widget.product,)]),
             ),
           ),
           Text(
