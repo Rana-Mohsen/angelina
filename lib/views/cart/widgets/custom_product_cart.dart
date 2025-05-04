@@ -1,26 +1,29 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/utils/widgets/cusrom_add_remove.dart';
 import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
 import 'package:angelina/core/utils/widgets/custom_rating.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/cart/widgets/custom_cart_add_remove.dart';
 import 'package:angelina/views/product/product_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-class CustomProductCard extends StatelessWidget {
-  const CustomProductCard({super.key, required this.product});
+class CustomCartProduct extends StatelessWidget {
+  const CustomCartProduct({super.key, required this.product});
   final ProductModel product;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: GestureDetector(
-        onTap:
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetailsView(product: product),
-              ),
-            ),
+        onTap: () {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => ProductDetailsView(product: product),
+          //   ),
+          // );
+        },
 
         child: Container(
           // width: 100.w,
@@ -62,24 +65,6 @@ class CustomProductCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                              onPressed: () {},
-
-                              icon: Container(
-                                padding: EdgeInsets.all(
-                                  10,
-                                ), // Adjust padding for desired size
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:
-                                      kGreenColor, // Change to your desired color
-                                ),
-                                child: Icon(
-                                  Icons.add_shopping_cart,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
                             Text(
                               "${product.price}ر.س",
                               textDirection: TextDirection.rtl,
@@ -89,6 +74,11 @@ class CustomProductCard extends StatelessWidget {
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                               ),
+                            ),
+                            SizedBox(
+                              height: 4.h,
+                              width: 25.w,
+                              child: CustomCartAddRemove(item: product),
                             ),
                           ],
                         ),

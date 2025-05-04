@@ -1,6 +1,6 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/widgets/custom_button.dart';
-import 'package:angelina/core/utils/widgets/custom_product_card.dart';
+import 'package:angelina/views/favourite/widgets/custom_favorite_product.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _FavoriteViewState extends State<FavoriteView> {
 
                       itemBuilder:
                           (context, index) =>
-                              CustomProductCard(product: favList[index]),
+                              CustomFavoriteProduct(product: favList[index]),
                     ),
                   ),
                   SizedBox(

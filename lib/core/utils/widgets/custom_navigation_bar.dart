@@ -1,3 +1,4 @@
+import 'package:angelina/views/cart/cart_view.dart';
 import 'package:angelina/views/favourite/favorite_view.dart';
 import 'package:angelina/views/home/home_view.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   List<Widget> pages = const [
     HomeView(),
     FavoriteView(),
-    Text("cart"),
+    CartView(),
     Text("profile"),
   ];
   Color inactive = Color(0xff787676);

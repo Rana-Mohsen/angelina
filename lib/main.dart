@@ -2,6 +2,8 @@ import 'package:angelina/core/utils/widgets/custom_navigation_bar.dart';
 import 'package:angelina/services/api_service/api.dart';
 import 'package:angelina/services/api_service/category.api.dart';
 import 'package:angelina/services/api_service/products_api.dart';
+import 'package:angelina/simple_bloc_observer.dart';
+import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
@@ -14,6 +16,8 @@ import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  Bloc.observer = SimpleBlocObserver();
+
   runApp(
     DevicePreview(
       enabled: false, //!kReleaseMode,
@@ -39,6 +43,7 @@ class MyApp extends StatelessWidget {
               create: (context) => CategoriesCubit(CategoryApi(Api(Dio()))),
             ),
             BlocProvider(create: (context) => FavoriteCubit()),
+            BlocProvider(create: (context) => CartListCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
