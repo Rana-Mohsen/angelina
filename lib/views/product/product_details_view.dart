@@ -1,13 +1,19 @@
 import 'dart:ui' as ui;
 
+import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/core/utils/widgets/cusrom_add_remove.dart';
+import 'package:angelina/core/utils/widgets/custom_button.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/home/widgets/custom_drawer_header.dart';
 import 'package:angelina/views/product/widgets/custom_app_bar.dart';
+import 'package:angelina/views/product/widgets/custom_dropdown.dart';
 import 'package:angelina/views/product/widgets/custom_product_slider.dart';
 import 'package:angelina/core/utils/widgets/custom_rating.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:sizer/sizer.dart';
+import 'package:html/parser.dart' as html;
 
 class ProductDetailsView extends StatefulWidget {
   const ProductDetailsView({super.key, required this.product});
@@ -17,6 +23,23 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
+  String decodeDiscription() {
+    var description = widget.product.description;
+    var document = html.parse(description); // Parse HTML content
+    var tableRows = document.querySelectorAll('tr'); // Find table rows
+
+    String result = tableRows
+        .map((row) {
+          var cells = row.querySelectorAll('td');
+          return cells.length > 1
+              ? '${cells[0].text}: ${cells[1].text}'
+              : ''; // Ensure correct indexing
+        })
+        .where((text) => text.isNotEmpty)
+        .join(', '); // Remove empty values
+
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +60,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       imageList: widget.product.images,
                     ),
                   ),
-                  Positioned(top: 1.h, child: CustomAppBar(product: widget.product,)),
+                  Positioned(
+                    top: 1.h,
+                    child: CustomAppBar(product: widget.product),
+                  ),
                 ],
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   RichText(
                     textDirection: TextDirection.rtl,
@@ -68,23 +94,49 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     children: [
                       SizedBox(
                         width: 43.w,
-                        height: 4.h,
-                        child: CustomAddRemove(),
+                        height: 4.3.h,
+                        child: CustomDropDown(
+                          attributes: widget.product.attributes,
+                        ),
                       ),
                       SizedBox(
                         width: 43.w,
                         height: 4.h,
-                        child: CustomAddRemove(),
+                        child: CustomAddRemove(item: widget.product),
                       ),
                     ],
                   ),
 
-                  // const SizedBox(height: 16),
-                  // const Text("Details", style: FontStyles.textStyle16),
-                  // Text(
-                  //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-                  //   style: FontStyles.textStyle14.copyWith(color: kGrayColor),
-                  // ),
+                  const SizedBox(height: 16),
+                  const Text("وصف المنتج", textDirection: TextDirection.rtl),
+                  Text(
+                    decodeDiscription(),
+                    style: TextStyle(color: Color(0xff939393)),
+                    textDirection: TextDirection.rtl,
+                  ),
+                  SizedBox(height: 5.h),
+                  Row(
+                    spacing: 10.w,
+                    children: [
+                      SizedBox(
+                        width: 55.w,
+                        child: CustomButton(
+                          text: "اضافة الى السلة",
+                          onTap: () {},
+                        ),
+                      ),
+                      Text(
+                        "${widget.product.price}ر.س",
+                        textDirection: TextDirection.rtl,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: kGreenColor,
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

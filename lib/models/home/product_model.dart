@@ -2,61 +2,85 @@ class ProductModel {
   final int id;
   final String name;
   final String description;
-  final String shortDescription;
-  final String sku;
   final String price;
-  final bool onSale;
   final List<Category> categories;
   final List<ProductImage> images;
-  final String stockStatus;
-  final bool hasOptions;
-   bool isFavourite;
-   int count;
-  ProductModel( {
+  final List<Attribute> attributes;
+ int count;
+   bool isFav;
+  ProductModel({
     required this.id,
     required this.name,
     required this.description,
-    required this.shortDescription,
-    required this.sku,
     required this.price,
-    required this.onSale,
     required this.categories,
     required this.images,
-    required this.stockStatus,
-    required this.hasOptions,
-    this.isFavourite = false, this.count=1,
+    required this.attributes,
+    this.count=1, this.isFav=false,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     id: json["id"],
     name: json["name"],
     description: json["description"],
-    shortDescription: json["short_description"],
-    sku: json["sku"],
     price: json["price"],
-    onSale: json["on_sale"],
     categories: List<Category>.from(
       json["categories"].map((x) => Category.fromJson(x)),
     ),
-    images: List<ProductImage>.from(
-      json["images"].map((x) => ProductImage.fromJson(x)),
+    images: List<ProductImage>.from(json["images"].map((x) => ProductImage.fromJson(x))),
+    attributes: List<Attribute>.from(
+      json["attributes"].map((x) => Attribute.fromJson(x)),
     ),
-    stockStatus: json["stock_status"],
-    hasOptions: json["has_options"],
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
     "description": description,
-    "short_description": shortDescription,
-    "sku": sku,
     "price": price,
-    "on_sale": onSale,
     "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
-    "Products": List<dynamic>.from(images.map((x) => x.toJson())),
-    "stock_status": stockStatus,
-    "has_options": hasOptions,
+    "images": List<dynamic>.from(images.map((x) => x.toJson())),
+    "attributes": List<dynamic>.from(attributes.map((x) => x.toJson())),
+  };
+}
+
+class Attribute {
+  final int id;
+  final String name;
+  final String slug;
+  final int position;
+  final bool visible;
+  final bool variation;
+  final List<String> options;
+
+  Attribute({
+    required this.id,
+    required this.name,
+    required this.slug,
+    required this.position,
+    required this.visible,
+    required this.variation,
+    required this.options,
+  });
+
+  factory Attribute.fromJson(Map<String, dynamic> json) => Attribute(
+    id: json["id"],
+    name: json["name"],
+    slug: json["slug"],
+    position: json["position"],
+    visible: json["visible"],
+    variation: json["variation"],
+    options: List<String>.from(json["options"].map((x) => x)),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "slug": slug,
+    "position": position,
+    "visible": visible,
+    "variation": variation,
+    "options": List<dynamic>.from(options.map((x) => x)),
   };
 }
 

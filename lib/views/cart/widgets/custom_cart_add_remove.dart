@@ -47,7 +47,6 @@ class _CustomCartAddRemoveState extends State<CustomCartAddRemove> {
               builder: (context, state) {
                 if (state is CartCountLoading &&
                     state.loadingProductIds.contains(widget.item.id)) {
-                  print("loaaaaaaaadine");
                   return CircularProgressIndicator();
                 }
                 return Text(

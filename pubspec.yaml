@@ -45,6 +45,11 @@ dependencies:
   flutter_screenutil: ^5.9.3
   device_preview: ^1.2.0
   cached_network_image: ^3.4.1
+  intl_phone_number_input: ^0.7.4
+  modal_progress_hud_nsn: ^0.5.1
+  uni_links5: ^0.5.4
+  flutter_html: ^3.0.0
+  html: ^0.15.6
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
+import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,8 +25,10 @@ class _CustomFavoriteIconState extends State<CustomFavoriteIcon> {
 
   @override
   Widget build(BuildContext context) {
-    bool isFav = widget.product.isFavourite;
+    bool isFav = widget.product.isFav;
     final favoriteCubit = context.read<FavoriteCubit>();
+    final productsCubit = context.read<ProductsCubit>();
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -35,7 +38,7 @@ class _CustomFavoriteIconState extends State<CustomFavoriteIcon> {
             favoriteCubit.removeFavorit(widget.product);
           }
 
-          // productsCubit.toggleFavorite(widget.item);
+          productsCubit.toggleFavorite();
 
           favoriteCubit.favoritBody();
         });

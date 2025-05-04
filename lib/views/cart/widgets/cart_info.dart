@@ -1,5 +1,6 @@
 import 'package:angelina/core/utils/widgets/custom_button.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
+import 'package:angelina/views/order/place_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -47,7 +48,15 @@ class _CartInfoState extends State<CartInfo> {
             ],
           ),
 
-          CustomButton(text: "إتمام الطلب", onTap: () {}),
+          CustomButton(
+            text: "إتمام الطلب",
+            onTap:bloc.totalPrice==0?null: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PlaceOrderView()),
+              );
+            },
+          ),
         ],
       ),
     );

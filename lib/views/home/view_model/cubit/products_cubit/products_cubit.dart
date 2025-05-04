@@ -1,3 +1,4 @@
+import 'package:angelina/constants.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/services/api_service/products_api.dart';
 import 'package:bloc/bloc.dart';
@@ -23,22 +24,16 @@ class ProductsCubit extends Cubit<ProductsState> {
       },
       (right) {
         productList = right;
+
         emit(ProductsSuccess(productList));
         // _emitFilteredList();
       },
     );
   }
 
-  // void toggleFavorite(ProductModel item) {
-  //   item.isFav = !item.isFav;
-  //   if (item.isFav) {
-  //     favList.add(item);
-  //   } else {
-  //     favList.removeWhere((i) => i.id == item.id);
-  //   }
-  //   //emit(ProductsSuccess(List.from(productList)));
-  //   _emitFilteredList();
-  // }
+  void toggleFavorite() {
+    emit(ProductsSuccess(productList));
+  }
 
   // void _emitFilteredList() {
   //   if (selectedCategory != 'All') {

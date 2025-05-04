@@ -5,13 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomAddRemove extends StatefulWidget {
-  //final ProductModel item;
+  final ProductModel item;
 
-  const CustomAddRemove({
-    super.key,
-
-    // required this.item,
-  });
+  const CustomAddRemove({super.key, required this.item});
 
   @override
   State<CustomAddRemove> createState() => _CustomAddRemoveState();
@@ -42,16 +38,16 @@ class _CustomAddRemoveState extends State<CustomAddRemove> {
           customCountIcon(
             icon: Icons.remove,
             onPressed: () {
-              setState(() {
-                //  widget.item.count++;
-
-                // bloc.cartTotalPrice();
-              });
+              if (widget.item.count > 1) {
+                setState(() {
+                  widget.item.count--;
+                });
+              }
             },
           ),
           Flexible(
             child: Text(
-              "1",
+              widget.item.count.toString(),
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
@@ -62,15 +58,9 @@ class _CustomAddRemoveState extends State<CustomAddRemove> {
           customCountIcon(
             icon: Icons.add,
             onPressed: () {
-              // if (widget.item.count > 0) {
-              //   setState(() {
-              //      widget.item.count--;
-              //     if (widget.item.count == 0) {
-              //       // bloc.removeItem(widget.item.name, widget.item);
-              //     }
-              //     bloc.cartTotalPrice();
-              //   });
-              // }
+              setState(() {
+                widget.item.count++;
+              });
             },
           ),
         ],

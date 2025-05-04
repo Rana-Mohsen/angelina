@@ -1,8 +1,10 @@
+import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/widgets/custom_navigation_bar.dart';
 import 'package:angelina/services/api_service/api.dart';
 import 'package:angelina/services/api_service/category.api.dart';
 import 'package:angelina/services/api_service/products_api.dart';
 import 'package:angelina/simple_bloc_observer.dart';
+import 'package:angelina/views/cart/cart_view.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
@@ -14,10 +16,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:uni_links5/uni_links.dart';
+
+// void handleDeepLinks() {
+//   getInitialLink().then((link) {
+//     if (link == "anglina://cart") {
+//       navigatorKey.currentState?.pushReplacement(
+//         MaterialPageRoute(builder: (_) => CartView()),
+//       );
+//     }
+//   });
+
+//   linkStream.listen((link) {
+//     if (link == "anglina://cart") {
+//       navigatorKey.currentState?.pushReplacement(
+//         MaterialPageRoute(builder: (_) => CartView()),
+//       );
+//     }
+//   });
+// }
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
-
+  //handleDeepLinks();
   runApp(
     DevicePreview(
       enabled: false, //!kReleaseMode,
@@ -46,6 +67,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => CartListCubit()),
           ],
           child: MaterialApp(
+            navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               scaffoldBackgroundColor: Colors.white,

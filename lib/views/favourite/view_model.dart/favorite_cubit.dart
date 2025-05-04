@@ -18,11 +18,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   addFavorit(ProductModel product) {
     favList.add(product);
-    product.isFavourite = true;
+    product.isFav = true;
   }
 
   removeFavorit(ProductModel product) {
     favList.remove(product);
-    product.isFavourite = false;
+    product.isFav = false;
   }
 }
