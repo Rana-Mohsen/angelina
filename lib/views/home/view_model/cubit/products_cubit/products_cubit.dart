@@ -10,23 +10,34 @@ class ProductsCubit extends Cubit<ProductsState> {
   final ProductsApi _api;
   List<ProductModel> productList = [];
   String selectedCategory = 'All';
+  int currentPage = 1;
+  bool isLoading = false; // Prevents multiple API calls
 
   ProductsCubit(this._api) : super(ProductsInitial());
+
   Future<void> getProducts([String? category]) async {
-    selectedCategory = category ?? 'All';
+    if (isLoading) return;
+    isLoading = true;
     emit(ProductsLoading());
-    var products = await _api.getProducts();
-    //print(products);
+    //await Future.delayed(Duration(milliseconds: 500));
+    selectedCategory = category ?? 'All';
 
+    var products = await _api.getProducts(currentPage);
+    print("=======> $currentPage");
     products.fold(
-      (left) {
-        emit(ProductsError(left.errMessage));
+      (failure) {
+        isLoading = false;
+        emit(ProductsError(failure.errMessage));
       },
-      (right) {
-        productList = right;
-
+      (newProducts) {
+        if (newProducts.isNotEmpty) {
+          productList.addAll(newProducts);
+          if (currentPage < 6) {
+            currentPage++;
+          }
+        }
+        isLoading = false;
         emit(ProductsSuccess(productList));
-        // _emitFilteredList();
       },
     );
   }

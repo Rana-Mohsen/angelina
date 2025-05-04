@@ -17,7 +17,7 @@ class _CustomHomeGridState extends State<CustomHomeGrid> {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 9.h),
+      padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 16),
       itemCount: widget.products.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         mainAxisExtent: 41.5.h,

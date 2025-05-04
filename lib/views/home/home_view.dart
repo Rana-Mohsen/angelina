@@ -20,15 +20,23 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  ScrollController scrollController = ScrollController();
   @override
   void initState() {
-     if (BlocProvider.of<CategoriesCubit>(context).ctgList.isEmpty) {
+    scrollController.addListener(loadMoreData);
+    if (BlocProvider.of<CategoriesCubit>(context).ctgList.isEmpty) {
       BlocProvider.of<CategoriesCubit>(context).getCategories();
     }
     if (BlocProvider.of<ProductsCubit>(context).productList.isEmpty) {
       BlocProvider.of<ProductsCubit>(context).getProducts();
     }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -46,6 +54,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       drawer: HomeDrawer(),
       body: CustomScrollView(
+        controller: scrollController,
         slivers: [
           SliverToBoxAdapter(
             child: Column(
@@ -53,38 +62,51 @@ class _HomeViewState extends State<HomeView> {
                 CustomSlider(),
                 //CustomCategoryListview(),
                 BlocBuilder<CategoriesCubit, CategoriesState>(
-              builder: (context, state) {
-                if (state is CategoriesLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is CategoriesError) {
-                  return Text(state.errMessage);
-                }
-                List<CategoryModel> categories =
-                    BlocProvider.of<CategoriesCubit>(context).ctgList;
+                  builder: (context, state) {
+                    if (state is CategoriesLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is CategoriesError) {
+                      return Text(state.errMessage);
+                    }
+                    List<CategoryModel> categories =
+                        BlocProvider.of<CategoriesCubit>(context).ctgList;
 
-                return CustomCategoryListview(categories: categories);
-              },
-            ),
+                    return CustomCategoryListview(categories: categories);
+                  },
+                ),
               ],
             ),
           ),
           SliverToBoxAdapter(
             child: BlocBuilder<ProductsCubit, ProductsState>(
               builder: (context, state) {
-                if (state is ProductsLoading) {
-                  return Center(child: CircularProgressIndicator());
-                } else if (state is ProductsError) {
+                if (state is ProductsError) {
                   return Text(state.errMessage);
                 }
                 List<ProductModel> products =
-                    BlocProvider.of<ProductsCubit>(context).productList;
-
-                return CustomHomeGrid(products: products);
+                    context.read<ProductsCubit>().productList;
+                bool isLoading = context.read<ProductsCubit>().isLoading;
+                return Column(
+                  children: [
+                    CustomHomeGrid(products: products),
+                    state is ProductsLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : SizedBox(),
+                    SizedBox(height: 10.h),
+                  ],
+                );
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  loadMoreData() {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      BlocProvider.of<ProductsCubit>(context).getProducts();
+    }
   }
 }

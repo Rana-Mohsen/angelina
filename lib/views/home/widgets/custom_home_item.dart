@@ -49,13 +49,21 @@ class _CustomHomeItemState extends State<CustomHomeItem> {
             ),
             child: Align(
               alignment: Alignment.topCenter,
-              child: Row(children: [CustomFavoriteIcon(product: widget.product,)]),
+              child: Row(
+                children: [CustomFavoriteIcon(product: widget.product)],
+              ),
             ),
           ),
-          Text(
-            widget.product.name,
-            textAlign: TextAlign.center,
-            style: FontStyles.textStyle10,
+          Flexible(
+            child: Text(
+              widget.product.name,
+              textAlign: TextAlign.center,
+              style: FontStyles.textStyle10.copyWith(
+                overflow: TextOverflow.fade,
+              ),
+              maxLines: 2,
+              softWrap: true,
+            ),
           ),
           Text(
             widget.product.categories[0].name,
