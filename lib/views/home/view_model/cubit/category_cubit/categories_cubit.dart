@@ -26,18 +26,16 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     );
   }
 
-   Future<void> getOneCategory(int ctgId) async {
+  Future<void> getOneCategory(int ctgId) async {
     emit(OneCategoryLoading());
-    var ctg = await _api.fetchOneCategory(ctgId.toString());
+    var ctg = await _api.fetchOneCategory(ctgId);
     ctg.fold(
       (left) {
         emit(OneCategoryError(left.errMessage));
       },
       (right) {
-        ctgList = right;
         emit(OneCategorySuccess(right));
       },
     );
   }
-  
 }
