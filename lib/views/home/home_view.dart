@@ -1,6 +1,8 @@
+import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/models/category/category_model.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/home/more_products_view.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_category_listview.dart';
@@ -23,7 +25,6 @@ class _HomeViewState extends State<HomeView> {
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
-    scrollController.addListener(loadMoreData);
     if (BlocProvider.of<CategoriesCubit>(context).ctgList.isEmpty) {
       BlocProvider.of<CategoriesCubit>(context).getCategories();
     }
@@ -61,6 +62,22 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 CustomSlider(),
                 //CustomCategoryListview(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 16, top: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "الاقسام",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          // color: kPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 BlocBuilder<CategoriesCubit, CategoriesState>(
                   builder: (context, state) {
                     if (state is CategoriesLoading) {
@@ -73,6 +90,44 @@ class _HomeViewState extends State<HomeView> {
 
                     return CustomCategoryListview(categories: categories);
                   },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    bottom: 6,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MoreProductsView(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          "المزيد",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: kGreenColor,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "احدث المنتجات",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                          // color: kPrimaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -101,12 +156,5 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
     );
-  }
-
-  loadMoreData() {
-    if (scrollController.position.pixels ==
-        scrollController.position.maxScrollExtent) {
-      BlocProvider.of<ProductsCubit>(context).getProducts();
-    }
   }
 }

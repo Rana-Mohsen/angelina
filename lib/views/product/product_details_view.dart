@@ -67,8 +67,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24, left: 16, right: 16),
+            Container(
+              margin: const EdgeInsets.only(top: 24, left: 16, right: 16),
+              height: 43.3.h,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -109,33 +110,50 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
 
                   const SizedBox(height: 16),
                   const Text("وصف المنتج", textDirection: TextDirection.rtl),
-                  Text(
-                    decodeDiscription(),
-                    style: TextStyle(color: Color(0xff939393)),
-                    textDirection: TextDirection.rtl,
+                  Flexible(
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: SizedBox(
+                        // height: 15.h,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 5.0),
+                            child: Text(
+                              decodeDiscription(),
+                              style: TextStyle(color: Color(0xff939393)),
+                              textDirection: TextDirection.rtl,
+                              overflow: TextOverflow.fade,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 5.h),
-                  Row(
-                    spacing: 10.w,
-                    children: [
-                      SizedBox(
-                        width: 55.w,
-                        child: CustomButton(
-                          text: "اضافة الى السلة",
-                          onTap: () {},
+
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0, top: 16),
+                    child: Row(
+                      spacing: 10.w,
+                      children: [
+                        SizedBox(
+                          width: 55.w,
+                          child: CustomButton(
+                            text: "اضافة الى السلة",
+                            onTap: () {},
+                          ),
                         ),
-                      ),
-                      Text(
-                        "${widget.product.price}ر.س",
-                        textDirection: TextDirection.rtl,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: kGreenColor,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
+                        Text(
+                          "${widget.product.price}ر.س",
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: kGreenColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
