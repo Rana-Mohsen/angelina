@@ -21,8 +21,11 @@ class CategoryApi {
 
       List<CategoryModel> categories = [];
       for (var ctg in data) {
-        categories.add(CategoryModel.fromJson(ctg));
-        print(CategoryModel.fromJson(ctg).image.toString());
+        var ctgmodel = CategoryModel.fromJson(ctg);
+        if(ctgmodel.count!=0)
+        {
+          categories.add(CategoryModel.fromJson(ctg));
+        }
       }
       return right(categories);
     } catch (e) {

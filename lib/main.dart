@@ -1,5 +1,5 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/widgets/custom_navigation_bar.dart';
+import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
 import 'package:angelina/services/api_service/api.dart';
 import 'package:angelina/services/api_service/category.api.dart';
 import 'package:angelina/services/api_service/products_api.dart';
@@ -9,6 +9,7 @@ import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
+import 'package:angelina/views/navigation_bar/view_model/cubit/navigation_body_cubit.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
           providers: [
+                        BlocProvider(create: (context) => NavigationBodyCubit()),
+
             BlocProvider(
               create: (context) => ProductsCubit(ProductsApi(Api(Dio()))),
             ),
