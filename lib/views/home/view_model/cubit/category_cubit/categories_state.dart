@@ -19,3 +19,15 @@ class CategoriesError extends CategoriesState {
 
   CategoriesError(this.errMessage);
 }
+class OneCategoryLoading extends CategoriesState {}
+
+class OneCategoryError extends CategoriesState {
+  final String errMessage;
+
+  OneCategoryError(this.errMessage);
+}
+class OneCategorySuccess extends CategoriesState {
+  final List<ProductModel> ctg;
+
+  OneCategorySuccess(this.ctg);
+}

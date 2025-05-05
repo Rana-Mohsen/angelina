@@ -1,4 +1,5 @@
 import 'package:angelina/models/category/category_model.dart';
+import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/services/api_service/category.api.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -24,4 +25,19 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       },
     );
   }
+
+   Future<void> getOneCategory(int ctgId) async {
+    emit(OneCategoryLoading());
+    var ctg = await _api.fetchOneCategory(ctgId.toString());
+    ctg.fold(
+      (left) {
+        emit(OneCategoryError(left.errMessage));
+      },
+      (right) {
+        ctgList = right;
+        emit(OneCategorySuccess(right));
+      },
+    );
+  }
+  
 }
