@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class PaymobService {
   final Api _api = Api(Dio());
 
-  Future<void> launchCheckOutUrl(
+  Future<String> gettUrl(
     double amount,
     String firstName,
     String lastName,
@@ -24,13 +24,8 @@ class PaymobService {
       phoneNumber,
       countryCode,
     );
-    final Uri url = Uri.parse(
-      'https://accept.paymob.com/api/acceptance/iframes/916408?payment_token=$paymentKey',
-    );
 
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
+    return 'https://accept.paymob.com/api/acceptance/iframes/916408?payment_token=$paymentKey';
   }
 
   Future<String> _getPaymentkey(
@@ -66,6 +61,7 @@ class PaymobService {
           },
           "extras": {},
           "expiration": 3600,
+          "redirect_url": "https://anglina.app",
         },
       );
       return data["payment_keys"][0]["key"];

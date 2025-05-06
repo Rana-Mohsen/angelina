@@ -1,4 +1,3 @@
-
 import 'package:angelina/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -11,48 +10,38 @@ class PlaceOrderTextField extends StatefulWidget {
     required this.validator,
     this.obscure = false,
     this.icon,
+    this.keyboardType=TextInputType.name
   });
 
   String? hintText;
   Function(String) onChange;
-
   String? Function(String?)? validator;
   bool obscure;
   Widget? icon;
-
+  TextInputType? keyboardType;
   @override
   State<PlaceOrderTextField> createState() => _PlaceOrderTextFieldState();
 }
 
 class _PlaceOrderTextFieldState extends State<PlaceOrderTextField> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
-        focusNode: _focusNode,
+        // focusNode: _focusNode,
+        keyboardType: widget.keyboardType,
         obscureText: widget.obscure,
         validator: widget.validator,
         onChanged: widget.onChange,
         cursorColor: Colors.black,
         cursorHeight: 20,
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(16),
           suffixIcon: widget.icon,
-          hintText: _isFocused ? null : widget.hintText,
+          hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.grey),
           errorStyle: const TextStyle(
             color: kGreenColor,
@@ -60,7 +49,7 @@ class _PlaceOrderTextFieldState extends State<PlaceOrderTextField> {
             fontWeight: FontWeight.bold,
           ),
           filled: true,
-         // fillColor: _isFocused ? kSecondaryColor : kBackgroundColor,
+          fillColor: Colors.grey.shade300,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
@@ -68,11 +57,5 @@ class _PlaceOrderTextFieldState extends State<PlaceOrderTextField> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
   }
 }

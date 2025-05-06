@@ -8,7 +8,7 @@ class PlaceOrderView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(""),
+        title: Text("البيانات الشخصية"),
         //onTapBackIcon: () => context.pop(),
       ),
       body: const PlaceOrderViewBody(),

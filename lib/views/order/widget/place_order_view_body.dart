@@ -3,6 +3,7 @@ import 'package:angelina/core/utils/widgets/custom_button.dart';
 import 'package:angelina/services/paymob_service/paymob_service.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/order/widget/custom_phone_intl.dart';
+import 'package:angelina/views/order/widget/payment_web_view.dart';
 import 'package:angelina/views/order/widget/place_order_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +40,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
             child: Column(
               children: [
                 PlaceOrderTextField(
-                  hintText: "Location",
+                  hintText: "المكان",
                   validator: validateString,
                   onChange: (value) {
                     location = value;
@@ -49,7 +50,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                   children: [
                     Expanded(
                       child: PlaceOrderTextField(
-                        hintText: "First name",
+                        hintText: "الاسم الثانى",
                         validator: validateString,
                         onChange: (value) {
                           firstName = value;
@@ -59,7 +60,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: PlaceOrderTextField(
-                        hintText: "Second name",
+                        hintText: "الاسم الاول",
                         validator: validateString,
                         onChange: (value) {
                           lastName = value;
@@ -68,24 +69,31 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: CustomPhoneIntl(
-                    onSaved: (PhoneNumber nmb) {
-                      number = nmb;
-                    },
-                  ),
-                ),
-
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(vertical: 8.0),
+                //   child: CustomPhoneIntl(
+                //     onSaved: (PhoneNumber nmb) {
+                //       number = nmb;
+                //     },
+                //   ),
+                // ),
                 PlaceOrderTextField(
-                  hintText: "Email",
+                  hintText: "الهاتف",
+                  validator: Validators.emailValidator,
+                  keyboardType: TextInputType.number,
+                  onChange: (value) {
+                    email = value;
+                  },
+                ),
+                PlaceOrderTextField(
+                  hintText: "البريد الالكترونى",
                   validator: Validators.emailValidator,
                   onChange: (value) {
                     email = value;
                   },
                 ),
                 PlaceOrderTextField(
-                  hintText: "Address",
+                  hintText: "العنوان",
                   validator: validateString,
                   onChange: (value) {
                     address = value;
@@ -94,7 +102,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: CustomButton(
-                    text: "Continue",
+                    text: "إكمال العملية",
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!
@@ -103,7 +111,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                           isLoading = true;
                         });
                         PaymobService paymob = PaymobService();
-                        await paymob.launchCheckOutUrl(
+                        var paymentUrl = await paymob.gettUrl(
                           bloc.totalPrice,
                           firstName!,
                           lastName!,
@@ -111,6 +119,15 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                           address!,
                           number.phoneNumber!,
                           number.isoCode!,
+                        );
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    PaymentWebView(paymentUrl: paymentUrl),
+                          ),
                         );
                       }
                       setState(() {

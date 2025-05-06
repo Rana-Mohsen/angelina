@@ -10,22 +10,9 @@ class CustomPhoneIntl extends StatefulWidget {
 }
 
 class _CustomPhoneIntlState extends State<CustomPhoneIntl> {
-  final FocusNode _focusNode = FocusNode();
-  bool _isFocused = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      setState(() {
-        _isFocused = _focusNode.hasFocus;
-      });
-    });
-  }
-
   final TextEditingController controller = TextEditingController();
-  String initialCountry = 'SA';
-  PhoneNumber number = PhoneNumber(isoCode: 'SA');
+  String initialCountry = 'EG';
+  PhoneNumber number = PhoneNumber(isoCode: 'EG');
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
@@ -56,7 +43,8 @@ class _CustomPhoneIntlState extends State<CustomPhoneIntl> {
     return InputDecoration(
       contentPadding: const EdgeInsets.all(16),
       // suffixIcon: widget.icon,
-      hintText: _isFocused ? null : "Phone",
+      hintText: "الهاتف",
+      hintTextDirection: TextDirection.rtl,
       hintStyle: TextStyle(color: Colors.grey),
       errorStyle: const TextStyle(
         color: kGreenColor,
@@ -64,7 +52,7 @@ class _CustomPhoneIntlState extends State<CustomPhoneIntl> {
         fontWeight: FontWeight.bold,
       ),
       filled: true,
-      // fillColor: _isFocused ? kSecondaryColor : kBackgroundColor,
+      fillColor: Colors.grey.shade300,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
