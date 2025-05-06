@@ -1,7 +1,7 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/core/utils/font_styles.dart';
-import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
+import 'package:angelina/core/widgets/custom_favorite_icon.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

@@ -23,7 +23,7 @@ class CartListCubit extends Cubit<CartListState> {
     }
   }
 
-  Future<void> addProductFromCart(ProductModel product) async {
+  Future<void> addProductToCart(ProductModel product) async {
     bool exist = cartList.contains(product);
     if (!exist) {
       cartList.add(product);

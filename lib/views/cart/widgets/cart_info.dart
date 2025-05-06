@@ -1,4 +1,4 @@
-import 'package:angelina/core/utils/widgets/custom_button.dart';
+import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/order/place_order_view.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +33,11 @@ class _CartInfoState extends State<CartInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Total price", style: TextStyle(fontSize: 20)),
               BlocBuilder<CartListCubit, CartListState>(
                 builder: (context, state) {
                   return Text(
-                    "\$${bloc.totalPrice}",
+                    "${bloc.totalPrice}ر.س",
+                    textDirection: TextDirection.rtl,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       //  color: kPrimaryColor,
@@ -45,17 +45,23 @@ class _CartInfoState extends State<CartInfo> {
                   );
                 },
               ),
+              const Text("المجموع", style: TextStyle(fontSize: 20)),
             ],
           ),
 
           CustomButton(
             text: "إتمام الطلب",
-            onTap:bloc.totalPrice==0?null: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PlaceOrderView()),
-              );
-            },
+            onTap:
+                bloc.totalPrice == 0
+                    ? null
+                    : () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlaceOrderView(),
+                        ),
+                      );
+                    },
           ),
         ],
       ),

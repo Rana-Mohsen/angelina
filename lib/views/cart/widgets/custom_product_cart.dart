@@ -1,7 +1,7 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/widgets/cusrom_add_remove.dart';
-import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
-import 'package:angelina/core/utils/widgets/custom_rating.dart';
+import 'package:angelina/core/widgets/cusrom_add_remove.dart';
+import 'package:angelina/core/widgets/custom_favorite_icon.dart';
+import 'package:angelina/core/widgets/custom_rating.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/cart/widgets/custom_cart_add_remove.dart';
 import 'package:angelina/views/product/product_details_view.dart';

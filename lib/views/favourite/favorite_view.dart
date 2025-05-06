@@ -1,11 +1,12 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/widgets/custom_button.dart';
+import 'package:angelina/core/utils/functions/snack_bar.dart';
+import 'package:angelina/core/widgets/custom_button.dart';
+import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/favourite/widgets/custom_favorite_product.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class FavoriteView extends StatefulWidget {
   const FavoriteView({super.key});
@@ -44,17 +45,19 @@ class _FavoriteViewState extends State<FavoriteView> {
                   SizedBox(
                     child: CustomButton(
                       onTap: () {
-                        // for (var favItem in favList) {
-                        //   if (!cartList.contains(favItem)) {
-                        //     BlocProvider.of<CartListCubit>(context).addItem(favItem);
-                        //   }
-                        // }
-                        //snackBarMessage(context, "All items added to cart");
+                        for (var favItem in favList) {
+                          BlocProvider.of<CartListCubit>(
+                            context,
+                          ).addProductToCart(favItem);
+                        }
+                        snackBarMessage(
+                          context,
+                          "تم اضافة جميع المنتجات الى السلة",
+                        );
                       },
                       text: "اضافة الى السلة",
                     ),
                   ),
-                  SizedBox(height: 8.h),
                 ],
               ),
             );

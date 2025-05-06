@@ -1,5 +1,5 @@
 import 'package:angelina/core/utils/validators.dart';
-import 'package:angelina/core/utils/widgets/custom_button.dart';
+import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/services/paymob_service/paymob_service.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/order/widget/custom_phone_intl.dart';

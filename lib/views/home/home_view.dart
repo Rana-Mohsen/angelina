@@ -147,7 +147,7 @@ class _HomeViewState extends State<HomeView> {
                     state is ProductsLoading
                         ? Center(child: CircularProgressIndicator())
                         : SizedBox(),
-                    SizedBox(height: 10.h),
+                    //SizedBox(height: 10.h),
                   ],
                 );
               },

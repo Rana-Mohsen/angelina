@@ -1,6 +1,7 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/widgets/custom_favorite_icon.dart';
-import 'package:angelina/core/utils/widgets/custom_rating.dart';
+import 'package:angelina/core/utils/functions/snack_bar.dart';
+import 'package:angelina/core/widgets/custom_favorite_icon.dart';
+import 'package:angelina/core/widgets/custom_rating.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/product/product_details_view.dart';
@@ -68,9 +69,10 @@ class CustomFavoriteProduct extends StatelessWidget {
                               onPressed: () {
                                 BlocProvider.of<CartListCubit>(
                                   context,
-                                ).addProductFromCart(product);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text("item added to cart")),
+                                ).addProductToCart(product);
+                                snackBarMessage(
+                                  context,
+                                  "تم إضافة المنتج الى السلة",
                                 );
                               },
 

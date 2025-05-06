@@ -1,5 +1,5 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/widgets/custom_button.dart';
+import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/views/cart/widgets/custom_product_cart.dart';
 import 'package:angelina/views/favourite/widgets/custom_favorite_product.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
@@ -48,7 +48,6 @@ class _CartViewState extends State<CartView> {
               alignment: Alignment.bottomCenter,
               child: SizedBox(child: CartInfo()),
             ),
-            SizedBox(height: 8.h),
           ],
         ),
       ),

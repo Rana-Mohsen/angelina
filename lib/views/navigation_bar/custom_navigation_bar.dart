@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sizer/sizer.dart';
 import 'package:angelina/views/cart/cart_view.dart';
 import 'package:angelina/views/favourite/favorite_view.dart';
 import 'package:angelina/views/home/home_view.dart';
 import 'package:angelina/views/navigation_bar/view_model/cubit/navigation_body_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar({super.key});
@@ -14,7 +14,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  List<String> titles = ['Home', 'Favorite', 'Cart', 'Profile'];
+  List<String> titles = ['الرئيسية', 'المفضلة', 'العربة', 'Profile'];
   List<IconData> icons = [
     Icons.home_outlined,
     Icons.favorite_border_outlined,
@@ -25,32 +25,34 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     HomeView(),
     FavoriteView(),
     CartView(),
-    Text("profile"),
+    Center(child: Text("Profile")), // Properly structured placeholder
   ];
   Color inactive = Color(0xff787676);
   Color active = Color(0xff0C3A3F);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+      body: Column(
         children: [
-          BlocBuilder<NavigationBodyCubit, NavigationBodyState>(
-            builder: (context, state) {
-              int selectedIndex =
-                  BlocProvider.of<NavigationBodyCubit>(context).selectedIndex;
-
-              return pages[selectedIndex];
-            },
+          Expanded(
+            child: BlocBuilder<NavigationBodyCubit, NavigationBodyState>(
+              builder: (context, state) {
+                int selectedIndex =
+                    BlocProvider.of<NavigationBodyCubit>(context).selectedIndex;
+                return pages[selectedIndex];
+              },
+            ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: _navbar()),
         ],
       ),
+      bottomNavigationBar: _navbar(),
     );
   }
 
   Widget _navbar() {
     return Container(
-      height: 8.h,
+      height: 8.h, // Preserved height
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -73,7 +75,6 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       BlocProvider.of<NavigationBodyCubit>(
                         context,
                       ).selectedIndex;
-                  // print(index);
                   bool isSelected = selectedIndex == index;
                   return GestureDetector(
                     onTap: () {
@@ -82,20 +83,12 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
                       ).showBody(index);
                     },
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(
-                            top: 10,
-                            bottom: 0,
-                            left: 15,
-                            right: 15,
-                          ),
-                          child: Icon(
-                            icons[index],
-                            color: isSelected ? active : inactive,
-                            size: 30,
-                          ),
+                        Icon(
+                          icons[index],
+                          color: isSelected ? active : inactive,
+                          size: 30,
                         ),
                         Text(
                           titles[index],
