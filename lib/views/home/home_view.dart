@@ -1,4 +1,5 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/models/category/category_model.dart';
 import 'package:angelina/models/home/product_model.dart';
@@ -25,6 +26,8 @@ class _HomeViewState extends State<HomeView> {
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
+    // FavoritesStorageService.clearFavorites();
+
     if (BlocProvider.of<CategoriesCubit>(context).ctgList.isEmpty) {
       BlocProvider.of<CategoriesCubit>(context).getCategories();
     }

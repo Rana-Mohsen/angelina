@@ -1,6 +1,7 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/models/home/product_model.dart';
-import 'package:angelina/services/api_service/products_api.dart';
+import 'package:angelina/core/services/api_service/products_api.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -20,17 +21,24 @@ class ProductsCubit extends Cubit<ProductsState> {
     isLoading = true;
     emit(ProductsLoading());
     //await Future.delayed(Duration(milliseconds: 500));
-    selectedCategory = category ?? 'All';
+    //selectedCategory = category ?? 'All';
 
     var products = await _api.getProducts(currentPage);
-    print("=======> $currentPage");
+    // print("=======> $currentPage");
     products.fold(
       (failure) {
         isLoading = false;
         emit(ProductsError(failure.errMessage));
       },
-      (newProducts) {
+      (newProducts) async {
         if (newProducts.isNotEmpty) {
+          List<ProductModel> favoriteList =
+              await FavoritesStorageService.loadFavorites();
+
+          // Mark products as favorite if they exist in the favorites list
+          for (var product in newProducts) {
+            product.isFav = favoriteList.any((fav) => fav.id == product.id);
+          }
           productList.addAll(newProducts);
           if (currentPage < 6) {
             currentPage++;
@@ -42,7 +50,14 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
-  void toggleFavorite() {
+  void toggleFavorite() async {
+    List<ProductModel> favoriteList =
+        await FavoritesStorageService.loadFavorites();
+
+    // Mark products as favorite if they exist in the favorites list
+    for (var product in productList) {
+      product.isFav = favoriteList.any((fav) => fav.id == product.id);
+    }
     emit(ProductsSuccess(productList));
   }
 

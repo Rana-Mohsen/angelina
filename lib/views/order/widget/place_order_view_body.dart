@@ -2,8 +2,8 @@ import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/validators.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/models/order_requist_model.dart';
-import 'package:angelina/services/api_service/order_api.dart';
-import 'package:angelina/services/paymob_service/paymob_service.dart';
+import 'package:angelina/core/services/api_service/order_api.dart';
+import 'package:angelina/core/services/paymob_service/paymob_service.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/order/widget/custom_phone_intl.dart';
 import 'package:angelina/views/order/widget/payment_web_view.dart';
@@ -24,14 +24,7 @@ class PlaceOrderViewBody extends StatefulWidget {
 class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  String? firstName,
-      lastName,
-      location,
-      email,
-      address,
-      country,
-      city,
-      postCode;
+  String? firstName, lastName, email, address, country, city, postCode;
   PhoneNumber number = PhoneNumber();
   bool isLoading = false;
   @override
@@ -49,13 +42,6 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
             key: _formKey,
             child: Column(
               children: [
-                PlaceOrderTextField(
-                  hintText: "المكان",
-                  validator: validateString,
-                  onChange: (value) {
-                    location = value;
-                  },
-                ),
                 Row(
                   children: [
                     Expanded(
@@ -151,7 +137,7 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                           isLoading = true;
                         });
                         PaymobService paymob = PaymobService();
-                        var paymentUrl = await paymob.gettUrl(
+                        var paymentUrl = await paymob.getUrl(
                           bloc.totalPrice,
                           firstName!,
                           lastName!,

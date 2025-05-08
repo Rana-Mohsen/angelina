@@ -79,11 +79,11 @@ class CustomFavoriteProduct extends StatelessWidget {
                               icon: Container(
                                 padding: EdgeInsets.all(
                                   10,
-                                ), // Adjust padding for desired size
+                                ), 
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color:
-                                      kGreenColor, // Change to your desired color
+                                      kGreenColor, 
                                 ),
                                 child: Icon(
                                   Icons.add_shopping_cart,

@@ -6,8 +6,8 @@ class ProductModel {
   final List<Category> categories;
   final List<ProductImage> images;
   final List<Attribute> attributes;
- int count;
-   bool isFav;
+  int count;
+  bool isFav;
   ProductModel({
     required this.id,
     required this.name,
@@ -16,7 +16,8 @@ class ProductModel {
     required this.categories,
     required this.images,
     required this.attributes,
-    this.count=1, this.isFav=false,
+    this.count = 1,
+    this.isFav = false,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -27,10 +28,14 @@ class ProductModel {
     categories: List<Category>.from(
       json["categories"].map((x) => Category.fromJson(x)),
     ),
-    images: List<ProductImage>.from(json["images"].map((x) => ProductImage.fromJson(x))),
+    images: List<ProductImage>.from(
+      json["images"].map((x) => ProductImage.fromJson(x)),
+    ),
     attributes: List<Attribute>.from(
       json["attributes"].map((x) => Attribute.fromJson(x)),
     ),
+    isFav: json["isFav"] ?? false,
+    count: json["count"] ?? 1,
   );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +46,8 @@ class ProductModel {
     "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
     "images": List<dynamic>.from(images.map((x) => x.toJson())),
     "attributes": List<dynamic>.from(attributes.map((x) => x.toJson())),
+    "isFav": isFav,
+    "count": count,
   };
 }
 

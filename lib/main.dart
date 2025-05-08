@@ -1,8 +1,9 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
-import 'package:angelina/services/api_service/api.dart';
-import 'package:angelina/services/api_service/category_api.dart';
-import 'package:angelina/services/api_service/products_api.dart';
+import 'package:angelina/core/services/api_service/api.dart';
+import 'package:angelina/core/services/api_service/category_api.dart';
+import 'package:angelina/core/services/api_service/products_api.dart';
 import 'package:angelina/simple_bloc_observer.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/favourite/view_model.dart/favorite_cubit.dart';
@@ -18,7 +19,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   Bloc.observer = SimpleBlocObserver();
-  //handleDeepLinks();
   runApp(
     DevicePreview(
       enabled: false, //!kReleaseMode,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
           providers: [
-                        BlocProvider(create: (context) => NavigationBodyCubit()),
+            BlocProvider(create: (context) => NavigationBodyCubit()),
 
             BlocProvider(
               create: (context) => ProductsCubit(ProductsApi(Api(Dio()))),

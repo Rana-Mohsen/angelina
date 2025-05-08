@@ -12,6 +12,7 @@ class CustomFavoriteIcon extends StatefulWidget {
     this.padding = 6,
     required this.product,
   });
+
   final ProductModel product;
   final double? size;
   final double padding;
@@ -21,44 +22,45 @@ class CustomFavoriteIcon extends StatefulWidget {
 }
 
 class _CustomFavoriteIconState extends State<CustomFavoriteIcon> {
-  // bool isFav = false;
-
   @override
   Widget build(BuildContext context) {
-    bool isFav = widget.product.isFav;
     final favoriteCubit = context.read<FavoriteCubit>();
     final productsCubit = context.read<ProductsCubit>();
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          if (!isFav) {
-            favoriteCubit.addFavorit(widget.product);
-          } else {
-            favoriteCubit.removeFavorit(widget.product);
-          }
+    return BlocBuilder<FavoriteCubit, FavoriteState>(
+      builder: (context, state) {
+        bool isFav = widget.product.isFav;
 
-          productsCubit.toggleFavorite();
+        return GestureDetector(
+          onTap: () async {
+            if (!isFav) {
+              await favoriteCubit.addFavorit(widget.product);
+            } else {
+              await favoriteCubit.removeFavorit(widget.product);
+            }
+            productsCubit
+                .toggleFavorite(); // Ensure products list refreshes too
 
-          favoriteCubit.favoritBody();
-        });
+            /// **Important:** Trigger a UI refresh by fetching the latest favorite list
+            await favoriteCubit.favoritBody();
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: EdgeInsets.all(widget.padding),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Icon(
+                isFav ? Icons.favorite : Icons.favorite_border_outlined,
+                size: widget.size,
+                color: kGreenColor,
+              ),
+            ),
+          ),
+        );
       },
-
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: EdgeInsets.all(widget.padding),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white,
-          ),
-          child: Icon(
-            isFav == true ? Icons.favorite : Icons.favorite_border_outlined,
-            size: widget.size,
-            color: kGreenColor,
-          ),
-        ),
-      ),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -8,7 +8,11 @@ part 'favorite_state.dart';
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
 
-  favoritBody() {
+  Future<void> favoritBody() async {
+    List<ProductModel> favList = await FavoritesStorageService.loadFavorites();
+    print(
+      "Updated Favorites: ${favList.map((p) => p.isFav)}",
+    ); // Debugging check
     if (favList.isEmpty) {
       emit(FavoriteEmpty());
     } else {
@@ -16,13 +20,21 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     }
   }
 
-  addFavorit(ProductModel product) {
-    favList.add(product);
-    product.isFav = true;
+  Future<void> addFavorit(ProductModel product) async {
+    // product.isFav = true;
+    await FavoritesStorageService.addFavorite(product);
+    // emit(FavoriteChanged());
+    await favoritBody();
   }
 
-  removeFavorit(ProductModel product) {
-    favList.remove(product);
+  Future<void> removeFavorit(ProductModel product) async {
     product.isFav = false;
+    await FavoritesStorageService.removeFavorite(product.id);
+    // emit(FavoriteChanged());
+    await favoritBody();
+  }
+
+  Future<List<ProductModel>> getFavorites() async {
+    return await FavoritesStorageService.loadFavorites();
   }
 }

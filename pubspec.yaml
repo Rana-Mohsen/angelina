@@ -41,17 +41,16 @@ dependencies:
   flutter_bloc: ^9.1.0
   dio: ^5.8.0+1
   dartz: ^0.10.1
-  url_launcher: ^6.3.1
   flutter_screenutil: ^5.9.3
   device_preview: ^1.2.0
   cached_network_image: ^3.4.1
   intl_phone_number_input: ^0.7.4
   modal_progress_hud_nsn: ^0.5.1
-  uni_links5: ^0.5.4
   flutter_html: ^3.0.0
   html: ^0.15.6
   infinite_scroll_pagination: ^5.0.0
   webview_flutter: ^4.11.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

@@ -1,12 +1,11 @@
 import 'package:angelina/constant_keys.dart';
-import 'package:angelina/services/api_service/api.dart';
+import 'package:angelina/core/services/api_service/api.dart';
 import 'package:dio/dio.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PaymobService {
   final Api _api = Api(Dio());
 
-  Future<String> gettUrl(
+  Future<String> getUrl(
     double amount,
     String firstName,
     String lastName,
