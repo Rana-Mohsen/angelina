@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/assets.dart';
+import 'package:angelina/core/utils/functions/snack_bar.dart';
 import 'package:angelina/core/widgets/cusrom_add_remove.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/models/home/product_model.dart';
@@ -140,7 +141,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           child: CustomButton(
                             text: "اضافة الى السلة",
                             onTap: () {
-                              
+                              _updateCart(cartList, widget.product);
                             },
                           ),
                         ),
@@ -164,5 +165,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         ),
       ),
     );
+  }
+
+  void _updateCart(List<ProductModel> cartList, ProductModel product) {
+    int index = cartList.indexWhere((item) => item.id == product.id);
+
+    if (index != -1) {
+      cartList[index].count = product.count;
+      snackBarMessage(context, "تم تحديث المنتج فى السلة");
+    } else {
+      cartList.add(product);
+      snackBarMessage(context, "تم إضافة المنتج الى السلة");
+    }
   }
 }
