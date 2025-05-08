@@ -61,7 +61,7 @@ class PaymobService {
           },
           "extras": {},
           "expiration": 3600,
-          "redirect_url": "https://anglina.app",
+          //"redirect_url": "https://anglina.app",
         },
       );
       return data["payment_keys"][0]["key"];

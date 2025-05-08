@@ -139,7 +139,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                           width: 55.w,
                           child: CustomButton(
                             text: "اضافة الى السلة",
-                            onTap: () {},
+                            onTap: () {
+                              
+                            },
                           ),
                         ),
                         Text(

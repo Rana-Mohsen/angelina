@@ -1,5 +1,8 @@
+import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/validators.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
+import 'package:angelina/models/order_requist_model.dart';
+import 'package:angelina/services/api_service/order_api.dart';
 import 'package:angelina/services/paymob_service/paymob_service.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/order/widget/custom_phone_intl.dart';
@@ -21,7 +24,14 @@ class PlaceOrderViewBody extends StatefulWidget {
 class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  String? firstName, lastName, location, email, address;
+  String? firstName,
+      lastName,
+      location,
+      email,
+      address,
+      country,
+      city,
+      postCode;
   PhoneNumber number = PhoneNumber();
   bool isLoading = false;
   @override
@@ -69,28 +79,58 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                     ),
                   ],
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                //   child: CustomPhoneIntl(
-                //     onSaved: (PhoneNumber nmb) {
-                //       number = nmb;
-                //     },
-                //   ),
-                // ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: CustomPhoneIntl(
+                    onSaved: (PhoneNumber nmb) {
+                      number = nmb;
+                    },
+                  ),
+                ),
                 PlaceOrderTextField(
-                  hintText: "الهاتف",
-                  validator: Validators.emailValidator,
-                  keyboardType: TextInputType.number,
+                  hintText: "الرمز البريدى",
+                  validator: validateString,
                   onChange: (value) {
-                    email = value;
+                    postCode = value;
                   },
                 ),
+                // PlaceOrderTextField(
+                //   hintText: "الهاتف",
+                //   validator: Validators.emailValidator,
+                //   keyboardType: TextInputType.number,
+                //   onChange: (value) {
+                //     number = value;
+                //   },
+                // ),
                 PlaceOrderTextField(
                   hintText: "البريد الالكترونى",
                   validator: Validators.emailValidator,
                   onChange: (value) {
                     email = value;
                   },
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: PlaceOrderTextField(
+                        hintText: "الدولة",
+                        validator: validateString,
+                        onChange: (value) {
+                          country = value;
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: PlaceOrderTextField(
+                        hintText: "المدينة",
+                        validator: validateString,
+                        onChange: (value) {
+                          city = value;
+                        },
+                      ),
+                    ),
+                  ],
                 ),
                 PlaceOrderTextField(
                   hintText: "العنوان",
@@ -120,13 +160,40 @@ class _PlaceOrderViewBodyState extends State<PlaceOrderViewBody> {
                           number.phoneNumber!,
                           number.isoCode!,
                         );
-
+                        Billing billing = Billing(
+                          firstName: firstName!,
+                          lastName: lastName!,
+                          address1: address!,
+                          city: city!,
+                          postcode: postCode!,
+                          country: country!,
+                          email: email!,
+                          phone: number.phoneNumber!,
+                        );
+                        List<LineItem> orderedItems =
+                            cartList
+                                .map(
+                                  (item) => LineItem(
+                                    productId: item.id,
+                                    quantity: item.count,
+                                  ),
+                                )
+                                .toList();
+                        OrderRequest order = OrderRequest(
+                          paymentMethod: "visa",
+                          paymentMethodTitle: "visa",
+                          setPaid: true,
+                          billing: billing,
+                          lineItems: orderedItems,
+                        );
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder:
-                                (context) =>
-                                    PaymentWebView(paymentUrl: paymentUrl),
+                                (context) => PaymentWebView(
+                                  paymentUrl: paymentUrl,
+                                  order: order,
+                                ),
                           ),
                         );
                       }

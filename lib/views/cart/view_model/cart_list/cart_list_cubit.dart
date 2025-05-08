@@ -10,15 +10,23 @@ class CartListCubit extends Cubit<CartListState> {
   CartListCubit() : super(CartListInitial());
   double totalPrice = 0;
   Set<int> loadingItems = {};
+
+  void emptyCart() async {
+      cartList = [];
+      cartTotalPrice();
+      emit(CartListEmpty());
+    }
+
   Future<void> removeProductFromCart(ProductModel product) async {
     if (cartList.isEmpty) {
+      cartTotalPrice();
+
       emit(CartListEmpty());
     } else {
       emit(CartListLoading());
 
-      await Future.delayed(
-        Duration(microseconds: 5000),
-      ).then((value) => cartList.remove(product));
+      cartList.remove(product);
+      cartTotalPrice();
       emit(CartSuccess(cartList));
     }
   }
@@ -36,7 +44,7 @@ class CartListCubit extends Cubit<CartListState> {
     loadingItems.add(product.id);
     emit(CartCountLoading(loadingItems));
 
-    await Future.delayed(Duration(milliseconds: 1000));
+    //await Future.delayed(Duration(milliseconds: 1000));
     for (var cartItem in cartList) {
       if (cartItem.id == product.id) {
         cartItem.count += 1;
@@ -54,7 +62,7 @@ class CartListCubit extends Cubit<CartListState> {
 
     if (product.count > 1) {
       //print("whhhhhhhhhhhhhy");
-      await Future.delayed(Duration(milliseconds: 1000));
+      //await Future.delayed(Duration(milliseconds: 1000));
       for (var cartItem in cartList) {
         if (cartItem.id == product.id) {
           cartItem.count -= 1;

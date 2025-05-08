@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class Api {
@@ -12,19 +14,21 @@ class Api {
     Response response = await _dio.get(url, options: options);
     return response.data;
   }
-
+ 
   Future<dynamic> post({
     required String url,
     required dynamic body,
     String? token,
+     String? username,
+    String? password,
+
   }) async {
-    Options options = Options(
+Options options = Options(
       headers: {
         "Content-Type": "application/json",
         if (token != null) "Authorization": "Bearer $token",
       },
-    );
-    Response response = await _dio.post(url, data: body, options: options);
+    );    Response response = await _dio.post(url, data: body, options: options);
     return response.data;
   }
 

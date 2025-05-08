@@ -1,7 +1,7 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
 import 'package:angelina/services/api_service/api.dart';
-import 'package:angelina/services/api_service/category.api.dart';
+import 'package:angelina/services/api_service/category_api.dart';
 import 'package:angelina/services/api_service/products_api.dart';
 import 'package:angelina/simple_bloc_observer.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';

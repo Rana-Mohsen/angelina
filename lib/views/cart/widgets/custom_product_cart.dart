@@ -1,16 +1,43 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/widgets/cusrom_add_remove.dart';
 import 'package:angelina/core/widgets/custom_favorite_icon.dart';
 import 'package:angelina/core/widgets/custom_rating.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/cart/widgets/custom_cart_add_remove.dart';
-import 'package:angelina/views/product/product_details_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomCartProduct extends StatelessWidget {
   const CustomCartProduct({super.key, required this.product});
   final ProductModel product;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CartProductCard(product: product),
+        Positioned(
+          top: -5,
+          left: -5,
+          child: InkWell(
+            onTap: () {
+              BlocProvider.of<CartListCubit>(
+                context,
+              ).removeProductFromCart(product);
+            },
+            child: Icon(Icons.close),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CartProductCard extends StatelessWidget {
+  const CartProductCard({super.key, required this.product});
+
+  final ProductModel product;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,6 +55,7 @@ class CustomCartProduct extends StatelessWidget {
         child: Container(
           // width: 100.w,
           height: 20.h,
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),

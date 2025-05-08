@@ -16,14 +16,13 @@ class CategoryApi {
     try {
       var data = await _api.get(
         url:
-            "$baseUrl/categories?consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+            "${baseUrl}products/categories?consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
       );
 
       List<CategoryModel> categories = [];
       for (var ctg in data) {
         var ctgmodel = CategoryModel.fromJson(ctg);
-        if(ctgmodel.count!=0)
-        {
+        if (ctgmodel.count != 0) {
           categories.add(CategoryModel.fromJson(ctg));
         }
       }
@@ -40,7 +39,7 @@ class CategoryApi {
     try {
       var data = await _api.get(
         url:
-            "$baseUrl?category=$categoryId&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+            "${baseUrl}products?&category=$categoryId&per_page=100&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
       );
 
       List<ProductModel> categories = [];
@@ -48,6 +47,7 @@ class CategoryApi {
         categories.add(ProductModel.fromJson(ctg));
       }
       print(categories.length);
+
       return right(categories);
     } catch (e) {
       print(e.toString());

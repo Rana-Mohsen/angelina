@@ -26,13 +26,16 @@ class _CartViewState extends State<CartView> {
           children: [
             BlocBuilder<CartListCubit, CartListState>(
               builder: (context, state) {
-                if (state is CartListEmpty) {
-                  return Expanded(child: const SizedBox());
+                if (state is CartListEmpty || cartList.isEmpty) {
+                  return Expanded(
+                    child: const Center(child: Text("السلة فارغة")),
+                  );
                 }
                 return Expanded(
                   child: ListView.separated(
                     // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
+                   // clipBehavior: Clip.none,
                     //physics: const NeverScrollableScrollPhysics(),
                     itemCount: cartList.length,
                     separatorBuilder: (context, index) => const SizedBox(),

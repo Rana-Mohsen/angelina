@@ -15,7 +15,7 @@ class ProductsApi {
     try {
       var data = await _api.get(
         url:
-            "$baseUrl?per_page=10&page=$page&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+            "${baseUrl}products?per_page=10&page=$page&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
       );
 
       List<ProductModel> products = [];
