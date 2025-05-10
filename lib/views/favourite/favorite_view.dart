@@ -22,7 +22,7 @@ class _FavoriteViewState extends State<FavoriteView> {
   void initState() {
     super.initState();
     favoriteCubit = BlocProvider.of<FavoriteCubit>(context);
-    favoriteCubit.favoritBody(); // Load favorites from storage
+    favoriteCubit.favoritBody();
   }
 
   @override

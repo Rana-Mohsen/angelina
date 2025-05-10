@@ -1,4 +1,5 @@
 import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
+import 'package:angelina/core/services/notification/notification_service.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
@@ -22,6 +23,12 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   Future<void> addFavorit(ProductModel product) async {
     // product.isFav = true;
+    NotificationService.showNotification(
+      id: 1,
+      title: 'Anglina',
+      body: 'added items to favorite 🎉',
+    );
+
     await FavoritesStorageService.addFavorite(product);
     // emit(FavoriteChanged());
     await favoritBody();

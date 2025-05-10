@@ -1,5 +1,6 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
+import 'package:angelina/core/services/notification/notification_service.dart';
 import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
 import 'package:angelina/core/services/api_service/api.dart';
 import 'package:angelina/core/services/api_service/category_api.dart';
@@ -17,7 +18,9 @@ import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.initNotification();
   Bloc.observer = SimpleBlocObserver();
   runApp(
     DevicePreview(

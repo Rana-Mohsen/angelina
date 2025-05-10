@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(Assets.logo),
+        title: Image.asset(Assets.logo, height: 7.h),
         centerTitle: true,
         actions: [
           Icon(Icons.search),

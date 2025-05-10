@@ -31,7 +31,7 @@ class FavoritesStorageService {
     // Check if product already exists to avoid duplicates
     if (!favorites.any((item) => item.id == product.id)) {
       product.isFav = true;
-      print("===> ${product.isFav}");
+      //print("===> ${product.isFav}");
       favorites.add(product);
       await saveFavorites(favorites);
     }
