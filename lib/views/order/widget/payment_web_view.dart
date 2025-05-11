@@ -70,7 +70,10 @@ class _PaymentWebViewState extends State<PaymentWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("بيانات الدفع")),
+      appBar: AppBar(
+        title: Text("بيانات الدفع"),
+        automaticallyImplyLeading: false,
+      ),
       body: WebViewWidget(controller: controller),
     );
   }
