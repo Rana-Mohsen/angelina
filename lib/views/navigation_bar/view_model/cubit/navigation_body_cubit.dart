@@ -8,7 +8,9 @@ class NavigationBodyCubit extends Cubit<NavigationBodyState> {
 
   int selectedIndex = 0;
   showBody(int index) {
-    selectedIndex = index;
-    emit(ShowNavigationBody());
+    if (index < 4) {
+      selectedIndex = index;
+      emit(ShowNavigationBody());
+    }
   }
 }

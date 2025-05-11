@@ -1,4 +1,6 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/order_history_service.dart';
+import 'package:angelina/models/home/order_history_model.dart';
 import 'package:angelina/models/order_requist_model.dart';
 import 'package:angelina/core/services/api_service/api.dart';
 import 'package:angelina/core/services/api_service/order_api.dart';
@@ -35,6 +37,7 @@ class _PaymentWebViewState extends State<PaymentWebView> {
             NavigationDelegate(
               onPageFinished: (url) async {
                 if (url.contains("success")) {
+                  _addToOrderHistory();
                   cartList = [];
                   BlocProvider.of<CartListCubit>(context).emptyCart();
                   await _order.sendOrder(widget.order);
@@ -50,6 +53,18 @@ class _PaymentWebViewState extends State<PaymentWebView> {
             ),
           )
           ..loadRequest(Uri.parse(widget.paymentUrl));
+  }
+
+  _addToOrderHistory() async {
+    double total = BlocProvider.of<CartListCubit>(context).totalPrice;
+    String formattedDate = DateTime.now().toLocal().toString().split(' ')[0];
+    OrderHistoryModel order = OrderHistoryModel(
+      date: formattedDate,
+      quantity: cartList.length.toString(),
+      totalPrice: total,
+      items: cartList,
+    );
+    await OrderHistoryService.addOrder(order);
   }
 
   @override

@@ -4,11 +4,10 @@ class DrawerListviewImage extends StatelessWidget {
   const DrawerListviewImage({
     super.key,
     required this.icon,
-    required this.view, required this.onPressed,
+  required this.onPressed,
   });
   final void Function()? onPressed;
   final IconData icon;
-  final Widget view;
   @override
   Widget build(BuildContext context) {
     return Padding(

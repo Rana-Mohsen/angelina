@@ -12,10 +12,10 @@ class CartListCubit extends Cubit<CartListState> {
   Set<int> loadingItems = {};
 
   void emptyCart() async {
-      cartList = [];
-      cartTotalPrice();
-      emit(CartListEmpty());
-    }
+    cartList = [];
+    cartTotalPrice();
+    emit(CartListEmpty());
+  }
 
   Future<void> removeProductFromCart(ProductModel product) async {
     if (cartList.isEmpty) {
@@ -80,5 +80,6 @@ class CartListCubit extends Cubit<CartListState> {
     for (var item in cartList) {
       totalPrice += double.parse(item.price) * item.count;
     }
+    totalPrice = totalPrice.roundToDouble();
   }
 }
