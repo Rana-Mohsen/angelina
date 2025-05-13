@@ -33,65 +33,56 @@ class _FavoriteViewState extends State<FavoriteView> {
       appBar: AppBar(title: const Text("المفضلة")),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {
+          if (state is FavoriteEmpty) {
+            return Center(child: Text("لا يوجد منتجات"));
+          }
           if (state is FavoriteChanged) {
-            return FutureBuilder<List<ProductModel>>(
-              future: favoriteCubit.getFavorites(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(
-                    child: Text("You have no favorite items"),
-                  );
-                }
-
-                final favList = snapshot.data!;
-                return Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          itemCount: favList.length,
-                          separatorBuilder: (_, __) => const SizedBox(),
-                          itemBuilder:
-                              (context, index) => CustomFavoriteProduct(
-                                product: favList[index],
-                              ),
-                        ),
-                      ),
-                      SizedBox(
-                        child: CustomButton(
-                          onTap: ()  {
-                            for (var favItem in favList) {
-                              BlocProvider.of<CartListCubit>(
-                                context,
-                              ).addProductToCart(favItem);
-                              // productsCubit.updateProductButton(
-                              //   favItem.id,
-                              //   !favItem.buttonEnabled,
-                              // );
-                              // favItem.buttonEnabled = false;
-                              // await FavoritesStorageService.saveFavorites(
-                              //   favList,
-                              // );
-                            }
-
-                            snackBarMessage(
-                              context,
-                              "تم اضافة جميع المنتجات الى السلة",
-                            );
-                          },
-                          text: "اضافة الى السلة",
-                        ),
-                      ),
-                    ],
+            List<ProductModel> favList = state.favList;
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: favList.length,
+                      separatorBuilder: (_, __) => const SizedBox(),
+                      itemBuilder:
+                          (context, index) =>
+                              CustomFavoriteProduct(product: favList[index]),
+                    ),
                   ),
-                );
-              },
+                  SizedBox(
+                    child: CustomButton(
+                      onTap: () {
+                        for (var favItem in favList) {
+                          BlocProvider.of<CartListCubit>(
+                            context,
+                          ).addProductToCart(favItem);
+                          // productsCubit.updateProductButton(
+                          //   favItem.id,
+                          //   !favItem.buttonEnabled,
+                          // );
+                          // favItem.buttonEnabled = false;
+                          // await FavoritesStorageService.saveFavorites(
+                          //   favList,
+                          // );
+                        }
+
+                        snackBarMessage(
+                          context,
+                          "تم اضافة جميع المنتجات الى السلة",
+                        );
+                      },
+                      text: "اضافة الى السلة",
+                    ),
+                  ),
+                ],
+              ),
             );
           }
-          return const Center(child: Text("You have no favorite items"));
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

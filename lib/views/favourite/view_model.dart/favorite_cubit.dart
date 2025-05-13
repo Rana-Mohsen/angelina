@@ -10,14 +10,13 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit() : super(FavoriteInitial());
 
   Future<void> favoritBody() async {
+          emit(FavoriteLoading());
+
     List<ProductModel> favList = await FavoritesStorageService.loadFavorites();
-    print(
-      "Updated Favorites: ${favList.map((p) => p.isFav)}",
-    ); // Debugging check
     if (favList.isEmpty) {
       emit(FavoriteEmpty());
     } else {
-      emit(FavoriteChanged());
+      emit(FavoriteChanged(favList));
     }
   }
 
@@ -41,7 +40,5 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     await favoritBody();
   }
 
-  Future<List<ProductModel>> getFavorites() async {
-    return await FavoritesStorageService.loadFavorites();
-  }
+ 
 }

@@ -14,7 +14,7 @@ class _UserInfoState extends State<UserInfo> {
   bool isEditing = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-    @override
+  @override
   void initState() {
     super.initState();
     _loadUserData();
@@ -25,15 +25,21 @@ class _UserInfoState extends State<UserInfo> {
     String? savedEmail = await UserPreferences.loadEmail();
 
     setState(() {
-      nameController.text = savedName ?? "UserName"; 
+      nameController.text = savedName ?? "UserName";
       emailController.text = savedEmail ?? "Email";
     });
   }
+
   Future<void> _saveUserData() async {
-    await UserPreferences.saveName(nameController.text);
-    await UserPreferences.saveEmail(emailController.text);
+    await UserPreferences.saveName(
+      nameController.text == "" ? "userName" : nameController.text,
+    );
+    await UserPreferences.saveEmail(
+      emailController.text == "" ? "email" : emailController.text,
+    );
   }
-  void toggleEdit() async{
+
+  void toggleEdit() async {
     if (isEditing) {
       await _saveUserData(); // Save when editing is finished
     }
@@ -57,11 +63,16 @@ class _UserInfoState extends State<UserInfo> {
                   width: 50.w,
                   child: TextField(
                     controller: nameController,
-                    style: TextStyle(fontSize: 20.sp),
+                    decoration: InputDecoration(
+                      hintText: "userName",
+                      hintStyle: TextStyle(fontSize: 18.sp, color: Colors.grey),
+                    ),
+
+                    style: TextStyle(fontSize: 19.sp),
                     // decoration: const InputDecoration(border: InputBorder.none),
                   ),
                 )
-                : Text(nameController.text, style: TextStyle(fontSize: 20.sp)),
+                : Text(nameController.text, style: TextStyle(fontSize: 19.sp)),
 
             isEditing
                 ? SizedBox(
@@ -70,7 +81,10 @@ class _UserInfoState extends State<UserInfo> {
                   child: TextField(
                     controller: emailController,
                     style: TextStyle(fontSize: 16.sp),
-                    //decoration: const InputDecoration(border: InputBorder.none),
+                    decoration: InputDecoration(
+                      hintText: "email",
+                      hintStyle: TextStyle(fontSize: 16.sp, color: Colors.grey),
+                    ),
                   ),
                 )
                 : Text(emailController.text, style: TextStyle(fontSize: 16.sp)),

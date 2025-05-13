@@ -15,7 +15,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  List<String> titles = ['الرئيسية', 'المفضلة', 'العربة', 'Profile'];
+  List<String> titles = ['الرئيسية', 'المفضلة', 'العربة', 'حسابى'];
   List<IconData> icons = [
     Icons.home_outlined,
     Icons.favorite_border_outlined,
@@ -26,7 +26,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     HomeView(),
     FavoriteView(),
     CartView(),
-    ProfileView(), 
+    ProfileView(),
   ];
   Color inactive = Color(0xff787676);
   Color active = Color(0xff0C3A3F);
