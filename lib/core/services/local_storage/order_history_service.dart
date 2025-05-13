@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:angelina/models/home/order_history_model.dart';
-import 'package:angelina/models/home/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OrderHistoryService {

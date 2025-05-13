@@ -1,5 +1,4 @@
 import 'package:angelina/models/category/category_model.dart';
-import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_home_grid.dart';
 import 'package:flutter/material.dart';

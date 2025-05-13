@@ -15,8 +15,7 @@ class SearchTextfield extends StatelessWidget {
           vertical: 20,
           horizontal: 30,
         ),
-        //filled: true,
-        //fillColor: kBackgroundColor,
+        hintText: "ابحث",
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.withAlpha(35), width: 2),
           borderRadius: BorderRadius.circular(16),

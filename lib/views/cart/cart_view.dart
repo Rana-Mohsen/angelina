@@ -1,12 +1,9 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/views/cart/widgets/custom_product_cart.dart';
-import 'package:angelina/views/favourite/widgets/custom_favorite_product.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
 import 'package:angelina/views/cart/widgets/cart_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sizer/sizer.dart';
 
 class CartView extends StatefulWidget {
   const CartView({super.key});

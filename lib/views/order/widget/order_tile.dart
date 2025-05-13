@@ -49,7 +49,7 @@ class OrderTile extends StatelessWidget {
                     "المنتجات:",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  ...order.items.map((item) => OrderItems(item: item)).toList(),
+                  ...order.items.map((item) => OrderItems(item: item)),
                   const SizedBox(height: 8),
                   // Text(
                   //   "Status: $status",

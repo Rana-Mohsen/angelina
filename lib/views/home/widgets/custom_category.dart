@@ -1,6 +1,5 @@
 import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/models/category/category_model.dart';
-import 'package:angelina/models/home/category_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

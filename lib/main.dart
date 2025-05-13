@@ -1,5 +1,4 @@
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/core/services/notification/notification_service.dart';
 import 'package:angelina/views/home/view_model/cubit/search_cubit/cubit/search_cubit.dart';
 import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
@@ -17,7 +16,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +24,7 @@ void main() {
   Bloc.observer = SimpleBlocObserver();
   runApp(
     DevicePreview(
-      enabled: true, //!kReleaseMode,
+      enabled: false, //!kReleaseMode,
       builder: (context) => MyApp(), // Wrap your app
     ),
   );

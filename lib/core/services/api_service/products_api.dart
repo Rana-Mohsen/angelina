@@ -5,7 +5,6 @@ import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/core/services/api_service/api.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:html/parser.dart' as html;
 
 class ProductsApi {
   final Api _api;

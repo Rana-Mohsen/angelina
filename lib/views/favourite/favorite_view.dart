@@ -1,5 +1,3 @@
-import 'package:angelina/constants.dart';
-import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/core/utils/functions/snack_bar.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/models/home/product_model.dart';

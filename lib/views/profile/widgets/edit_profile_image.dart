@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/services/local_storage/user_pref.dart';
 import 'package:angelina/views/profile/widgets/profile_image.dart';
@@ -44,7 +43,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
-      final imageTemp = File(image.path);
+      //final imageTemp = File(image.path);
       setState(() async{
         await _saveImage(image.path);
       });
@@ -57,7 +56,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-      final imageTemp = File(image.path);
+     // final imageTemp = File(image.path);
       setState(() async{
         await _saveImage(image.path);
       });
@@ -126,7 +125,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
         constraints: const BoxConstraints(),
         onPressed: () async {
           await onPressed();
-          Navigator.pop(context); // Close bottom sheet after selecting
+          Navigator.pop(context); 
         },
         icon: Icon(icon, size: 5.h, color: Colors.white),
       ),

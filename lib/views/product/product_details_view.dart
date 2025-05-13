@@ -1,21 +1,16 @@
-import 'dart:ui' as ui;
 
 import 'package:angelina/constants.dart';
-import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/core/utils/functions/snack_bar.dart';
 import 'package:angelina/core/widgets/cusrom_add_remove.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
-import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
-import 'package:angelina/views/home/widgets/custom_drawer_header.dart';
 import 'package:angelina/views/product/widgets/custom_app_bar.dart';
 import 'package:angelina/views/product/widgets/custom_dropdown.dart';
 import 'package:angelina/views/product/widgets/custom_product_slider.dart';
 import 'package:angelina/core/widgets/custom_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:sizer/sizer.dart';
 import 'package:html/parser.dart' as html;
 

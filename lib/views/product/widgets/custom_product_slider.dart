@@ -1,7 +1,4 @@
-import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/models/home/product_model.dart';
-import 'package:angelina/models/home/slider_item_model.dart';
-import 'package:angelina/views/home/widgets/custom_slider_item.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
