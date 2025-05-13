@@ -8,6 +8,8 @@ class ProductModel {
   final List<Attribute> attributes;
   int count;
   bool isFav;
+    bool buttonEnabled;
+
   ProductModel({
     required this.id,
     required this.name,
@@ -18,6 +20,7 @@ class ProductModel {
     required this.attributes,
     this.count = 1,
     this.isFav = false,
+    this.buttonEnabled = true
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(

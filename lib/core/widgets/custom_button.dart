@@ -2,10 +2,11 @@ import 'package:angelina/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text, required this.onTap});
+  const CustomButton({super.key, required this.text, required this.onTap, this.color=kGreenColor});
 
   final String text;
   final void Function()? onTap;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -13,7 +14,7 @@ class CustomButton extends StatelessWidget {
       child: Container(
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: kGreenColor,
+          color: color,
           borderRadius: BorderRadius.circular(16),
           // border: Border.all(color: kPrimaryBlueColor, width: 2),
         ),

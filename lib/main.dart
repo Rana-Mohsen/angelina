@@ -1,6 +1,7 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
 import 'package:angelina/core/services/notification/notification_service.dart';
+import 'package:angelina/views/home/view_model/cubit/search_cubit/cubit/search_cubit.dart';
 import 'package:angelina/views/navigation_bar/custom_navigation_bar.dart';
 import 'package:angelina/core/services/api_service/api.dart';
 import 'package:angelina/core/services/api_service/category_api.dart';
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var productCubit = ProductsCubit(ProductsApi(Api(Dio())));
     return Sizer(
       builder: (context, orientation, screenType) {
         return MultiBlocProvider(
@@ -67,13 +69,14 @@ class _MyAppState extends State<MyApp> {
             BlocProvider(create: (context) => NavigationBodyCubit()),
 
             BlocProvider(
-              create: (context) => ProductsCubit(ProductsApi(Api(Dio()))),
+              create: (context) => productCubit,
             ),
             BlocProvider(
               create: (context) => CategoriesCubit(CategoryApi(Api(Dio()))),
             ),
             BlocProvider(create: (context) => FavoriteCubit()),
-            BlocProvider(create: (context) => CartListCubit()),
+            BlocProvider(create: (context) => CartListCubit(productCubit)),
+            BlocProvider(create: (context) => SearchCubit(ProductsApi(Api(Dio())))),
           ],
           child: MaterialApp(
             navigatorKey: navigatorKey,

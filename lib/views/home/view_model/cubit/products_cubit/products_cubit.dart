@@ -61,15 +61,11 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(ProductsSuccess(productList));
   }
 
-  // void _emitFilteredList() {
-  //   if (selectedCategory != 'All') {
-  //     final filtered =
-  //         productList
-  //             .where((product) => product.categoryName == selectedCategory)
-  //             .toList();
-  //     emit(ProductsSuccess(filtered));
-  //   } else {
-  //     emit(ProductsSuccess(productList));
-  //   }
-  // }
+  void updateProductButton(int productId, bool isEnabled) {
+  int index = productList.indexWhere((p) => p.id == productId);
+  if (index != -1) {
+    productList[index].buttonEnabled = isEnabled;
+    emit(ProductsSuccess(productList));
+  }
+}
 }

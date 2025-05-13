@@ -4,6 +4,7 @@ import 'package:angelina/core/utils/assets.dart';
 import 'package:angelina/models/category/category_model.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/home/more_products_view.dart';
+import 'package:angelina/views/home/search_view.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_category_listview.dart';
@@ -50,7 +51,14 @@ class _HomeViewState extends State<HomeView> {
         title: Image.asset(Assets.logo, height: 7.h),
         centerTitle: true,
         actions: [
-          Icon(Icons.search),
+          InkWell(
+            onTap:
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchView()),
+                ),
+            child: Icon(Icons.search),
+          ),
           SizedBox(width: 20),
           Icon(Icons.shopping_cart_outlined),
         ],

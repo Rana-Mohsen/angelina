@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomHomeGrid extends StatefulWidget {
-  const CustomHomeGrid({super.key, required this.products});
+  const CustomHomeGrid({
+    super.key,
+    required this.products,
+    this.scroll = false,
+  });
   final List<ProductModel> products;
+  final bool scroll;
   @override
   State<CustomHomeGrid> createState() => _CustomHomeGridState();
 }
@@ -16,7 +21,10 @@ class _CustomHomeGridState extends State<CustomHomeGrid> {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      physics:
+          widget.scroll
+              ? const AlwaysScrollableScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(right: 16, left: 16, top: 16, bottom: 16),
       itemCount: widget.products.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

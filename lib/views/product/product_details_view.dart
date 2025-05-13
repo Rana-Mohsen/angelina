@@ -6,12 +6,15 @@ import 'package:angelina/core/utils/functions/snack_bar.dart';
 import 'package:angelina/core/widgets/cusrom_add_remove.dart';
 import 'package:angelina/core/widgets/custom_button.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/cart/view_model/cart_list/cart_list_cubit.dart';
+import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_drawer_header.dart';
 import 'package:angelina/views/product/widgets/custom_app_bar.dart';
 import 'package:angelina/views/product/widgets/custom_dropdown.dart';
 import 'package:angelina/views/product/widgets/custom_product_slider.dart';
 import 'package:angelina/core/widgets/custom_rating.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:sizer/sizer.dart';
 import 'package:html/parser.dart' as html;
@@ -139,9 +142,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         SizedBox(
                           width: 55.w,
                           child: CustomButton(
+                            color: kGreenColor,
                             text: "اضافة الى السلة",
                             onTap: () {
-                              _updateCart(cartList, widget.product);
+
+                              _updateCart(context, widget.product);
+                              setState(() {});
                             },
                           ),
                         ),
@@ -167,9 +173,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
     );
   }
 
-  void _updateCart(List<ProductModel> cartList, ProductModel product) {
+  void _updateCart(BuildContext context, ProductModel product) {
     int index = cartList.indexWhere((item) => item.id == product.id);
-
+    var cartCubit = BlocProvider.of<CartListCubit>(context);
+    // var productsCubit = BlocProvider.of<ProductsCubit>(context);
+    // productsCubit.updateProductButton(product.id, !product.buttonEnabled);
     if (index != -1) {
       cartList[index].count = product.count;
       snackBarMessage(context, "تم تحديث المنتج فى السلة");

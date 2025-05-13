@@ -1,5 +1,6 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/models/home/product_model.dart';
+import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -7,7 +8,8 @@ import 'package:meta/meta.dart';
 part 'cart_list_state.dart';
 
 class CartListCubit extends Cubit<CartListState> {
-  CartListCubit() : super(CartListInitial());
+  final ProductsCubit productsCubit;
+  CartListCubit(this.productsCubit) : super(CartListInitial());
   double totalPrice = 0;
   Set<int> loadingItems = {};
 
@@ -24,9 +26,9 @@ class CartListCubit extends Cubit<CartListState> {
       emit(CartListEmpty());
     } else {
       emit(CartListLoading());
-
       cartList.remove(product);
       cartTotalPrice();
+
       emit(CartSuccess(cartList));
     }
   }
@@ -36,7 +38,8 @@ class CartListCubit extends Cubit<CartListState> {
     if (!exist) {
       cartList.add(product);
       cartTotalPrice();
-      emit(CartListItemChanged());
+        emit(CartListItemChanged());
+
     }
   }
 

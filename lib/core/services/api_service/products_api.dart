@@ -25,7 +25,27 @@ class ProductsApi {
       }
       return right(products);
     } catch (e) {
-      print(e.toString());
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+
+      return left(ServerFailure(e.toString()));
+    }
+  }
+  Future<Either<Failures, List<ProductModel>>> searchProducts(String search) async {
+    try {
+      var data = await _api.get(
+        url:
+            "${baseUrl}products?search=$search&per_page=100&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+      );
+
+      List<ProductModel> products = [];
+      for (var ctg in data) {
+        var product = ProductModel.fromJson(ctg);
+        products.add(product);
+      }
+      return right(products);
+    } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       }

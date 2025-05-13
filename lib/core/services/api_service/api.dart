@@ -61,4 +61,6 @@ Options options = Options(
     Response response = await _dio.delete(url, data: body, options: options);
     return response.data;
   }
+
+  searchProducts(String searchWord) {}
 }
