@@ -17,9 +17,22 @@ class EditProfileImage extends StatefulWidget {
 
 class _EditProfileImageState extends State<EditProfileImage> {
   File? pickedImage;
-  Future pickImage() async {
+  Future pickImageFromGallary() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() {
+        pickedImage = imageTemp;
+      });
+    } on PlatformException catch (e) {
+      debugPrint('Failed to pick image: $e');
+    }
+  }
+
+  Future pickImageFromCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemp = File(image.path);
       setState(() {
@@ -47,8 +60,8 @@ class _EditProfileImageState extends State<EditProfileImage> {
               child: IconButton(
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
-                onPressed: () async {
-                  await pickImage();
+                onPressed: () {
+                  _show(context);
                 },
                 icon: Icon(
                   FontAwesome.pen_to_square,
@@ -60,6 +73,57 @@ class _EditProfileImageState extends State<EditProfileImage> {
           ),
         ],
       ),
+    );
+  }
+
+  void _show(BuildContext ctx) {
+    showModalBottomSheet(
+      elevation: 10,
+      // backgroundColor: Colors.amber,
+      context: ctx,
+      builder:
+          (ctx) => SizedBox(
+            height: 15.h,
+            child: Row(
+              spacing: 5.w,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CircleAvatar(
+                  radius: 5.h,
+                  backgroundColor: kGreenColor,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () async {
+                      await pickImageFromCamera();
+                    },
+                    icon: Icon(
+                      Icons.camera,
+                      size: 5.h,
+                      color: Colors.white,
+                    ), // Adjust icon size
+                  ),
+                ),
+                CircleAvatar(
+                  radius: 5.h,
+                  backgroundColor: kGreenColor,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                    onPressed: () async {
+                      await pickImageFromGallary();
+                    },
+                    icon: Icon(
+                      Icons.image,
+                      size: 5.h,
+                      color: Colors.white,
+                    ), // Adjust icon size
+                  ),
+                ),
+                SizedBox(width: 5.w),
+              ],
+            ),
+          ),
     );
   }
 }
