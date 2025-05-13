@@ -54,6 +54,8 @@ dependencies:
   lints: ^5.1.1
   flutter_local_notifications: ^19.2.0
   shared_preferences_android: ^2.4.10
+  icons_plus: ^5.0.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +78,7 @@ flutter_launcher_icons:
 
 flutter_native_splash:
   color: "#ffffff"
-  # image: assets/images/launcher_logo.png
+  image: assets/images/splash_logo.jpeg
   # android_gravity: fill|center
   android_12:
     # image: assets/images/launcher_logo.png

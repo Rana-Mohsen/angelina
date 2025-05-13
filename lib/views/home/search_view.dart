@@ -1,10 +1,6 @@
-import 'package:angelina/core/services/api_service/api.dart';
-import 'package:angelina/core/services/api_service/products_api.dart';
-import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/views/home/view_model/cubit/search_cubit/cubit/search_cubit.dart';
 import 'package:angelina/views/home/widgets/custom_home_grid.dart';
 import 'package:angelina/views/home/widgets/search_textfield.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

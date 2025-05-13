@@ -1,3 +1,4 @@
+import 'package:angelina/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
@@ -25,7 +26,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
     HomeView(),
     FavoriteView(),
     CartView(),
-    Center(child: Text("Profile")), // Properly structured placeholder
+    ProfileView(), 
   ];
   Color inactive = Color(0xff787676);
   Color active = Color(0xff0C3A3F);
