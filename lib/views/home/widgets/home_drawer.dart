@@ -25,7 +25,7 @@ class HomeDrawer extends StatelessWidget {
     DrawerItemModel(icon: Icons.home_outlined, view: null),
     DrawerItemModel(icon: Icons.favorite_border_outlined, view: null),
     DrawerItemModel(icon: Icons.shopping_cart_outlined, view: null),
-    DrawerItemModel(icon: Icons.person, view: null),
+    DrawerItemModel(icon: Icons.person_outline, view: null),
     DrawerItemModel(icon: Icons.history, view: OrderHistoryView()),
   ];
 

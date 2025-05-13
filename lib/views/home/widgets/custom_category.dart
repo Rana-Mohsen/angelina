@@ -7,16 +7,16 @@ import 'package:sizer/sizer.dart';
 class CustomCategory extends StatelessWidget {
   const CustomCategory({super.key, required this.item});
   final CategoryModel item;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 5,
+      spacing: 1.h,
       children: [
         ClipOval(
           child: Container(
-            height: 18.w,
-            width: 18.w,
+            height: 9.h,
+            width: 9.h,
             decoration: const BoxDecoration(shape: BoxShape.circle),
             child:
                 item.image == null

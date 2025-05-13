@@ -25,7 +25,7 @@ class _CustomCategoryListviewState extends State<CustomCategoryListview> {
     return Padding(
       padding: const EdgeInsets.only(right: 16, top: 15, bottom: 15),
       child: SizedBox(
-        height: 12.5.h,
+        height: 13.5.h,
         child: ListView.separated(
           reverse: true,
           scrollDirection: Axis.horizontal,

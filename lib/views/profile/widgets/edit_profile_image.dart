@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/user_pref.dart';
 import 'package:angelina/views/profile/widgets/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,13 +18,35 @@ class EditProfileImage extends StatefulWidget {
 
 class _EditProfileImageState extends State<EditProfileImage> {
   File? pickedImage;
-  Future pickImageFromGallary() async {
+
+    @override
+  void initState() {
+    super.initState();
+    _loadUserImage();
+  }
+
+  Future<void> _loadUserImage() async {
+    String? savedImagePath = await UserPreferences.loadImagePath();
+    if (savedImagePath != null) {
+      setState(() {
+        pickedImage = File(savedImagePath); 
+      });
+    }
+  }
+
+  Future<void> _saveImage(String imagePath) async {
+    await UserPreferences.saveImagePath(imagePath);
+    setState(() {
+      pickedImage = File(imagePath); 
+    });
+  }
+  Future pickImageFromGallery() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemp = File(image.path);
-      setState(() {
-        pickedImage = imageTemp;
+      setState(() async{
+        await _saveImage(image.path);
       });
     } on PlatformException catch (e) {
       debugPrint('Failed to pick image: $e');
@@ -35,14 +58,14 @@ class _EditProfileImageState extends State<EditProfileImage> {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
       final imageTemp = File(image.path);
-      setState(() {
-        pickedImage = imageTemp;
+      setState(() async{
+        await _saveImage(image.path);
       });
     } on PlatformException catch (e) {
       debugPrint('Failed to pick image: $e');
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -61,7 +84,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(),
                 onPressed: () {
-                  _show(context);
+                  _showImagePicker(context);
                 },
                 icon: Icon(
                   FontAwesome.pen_to_square,
@@ -76,54 +99,37 @@ class _EditProfileImageState extends State<EditProfileImage> {
     );
   }
 
-  void _show(BuildContext ctx) {
+  void _showImagePicker(BuildContext ctx) {
     showModalBottomSheet(
       elevation: 10,
-      // backgroundColor: Colors.amber,
       context: ctx,
-      builder:
-          (ctx) => SizedBox(
-            height: 15.h,
-            child: Row(
-              spacing: 5.w,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  radius: 5.h,
-                  backgroundColor: kGreenColor,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    onPressed: () async {
-                      await pickImageFromCamera();
-                    },
-                    icon: Icon(
-                      Icons.camera,
-                      size: 5.h,
-                      color: Colors.white,
-                    ), // Adjust icon size
-                  ),
-                ),
-                CircleAvatar(
-                  radius: 5.h,
-                  backgroundColor: kGreenColor,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    onPressed: () async {
-                      await pickImageFromGallary();
-                    },
-                    icon: Icon(
-                      Icons.image,
-                      size: 5.h,
-                      color: Colors.white,
-                    ), // Adjust icon size
-                  ),
-                ),
-                SizedBox(width: 5.w),
-              ],
-            ),
-          ),
+      builder: (ctx) => SizedBox(
+        height: 15.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _imageOption(Icons.camera, pickImageFromCamera),
+            SizedBox(width: 5.w),
+            _imageOption(Icons.image, pickImageFromGallery),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _imageOption(IconData icon, Future Function() onPressed) {
+    return CircleAvatar(
+      radius: 5.h,
+      backgroundColor: kGreenColor,
+      child: IconButton(
+        padding: EdgeInsets.zero,
+        constraints: const BoxConstraints(),
+        onPressed: () async {
+          await onPressed();
+          Navigator.pop(context); // Close bottom sheet after selecting
+        },
+        icon: Icon(icon, size: 5.h, color: Colors.white),
+      ),
     );
   }
 }

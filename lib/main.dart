@@ -26,7 +26,7 @@ void main() {
   Bloc.observer = SimpleBlocObserver();
   runApp(
     DevicePreview(
-      enabled: false, //!kReleaseMode,
+      enabled: true, //!kReleaseMode,
       builder: (context) => MyApp(), // Wrap your app
     ),
   );

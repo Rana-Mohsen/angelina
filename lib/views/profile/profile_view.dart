@@ -13,10 +13,10 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   final List<Map<String, dynamic>> listTileData = const [
-    {"icon": "assets/icons/profile/battery.png", "title": "History of order"},
+    {"icon": Icons.history, "title": "الطلبات"},
     //{"icon": "assets/icons/profile/pay_method.png", "title": "Payment method"},
-    {"icon": "assets/icons/profile/notification.png", "title": "Notification"},
-    {"icon": "assets/icons/profile/promo_code.png", "title": "Promo code"},
+    {"icon": Icons.notifications, "title": "الاشعارات"},
+    {"icon": Icons.sell, "title": "اكواد الخصم"},
   ];
   bool isLoading = true;
   // late UserModel user;
@@ -36,6 +36,7 @@ class _ProfileViewState extends State<ProfileView> {
       child: Scaffold(
         body: Column(
           children: [
+            SizedBox(height: 3.h),
             EditProfileImage(),
             UserInfo(),
             const Divider(indent: 16, endIndent: 16),
@@ -50,23 +51,26 @@ class _ProfileViewState extends State<ProfileView> {
                       //   context.push(listTileData[index]["route"]);
                       // }
                     },
-                    child: ListTile(
-                      leading: SizedBox(
-                        height: 2.8.h,
-                        width: 6.w,
-                        child: Image.asset(Assets.ctg1),
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: ListTile(
+                        // leading: SizedBox(`
+                        //   height: 2.8.h,
+                        //   width: 6.w,
+                        //   child: Icon(listTileData[index]["icon"]!),
+                        // ),
+                        title: Text(listTileData[index]["title"]!),
+                        titleTextStyle: TextStyle(
+                          fontSize: 19.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textColor: const Color(0xff575757),
+                        // subtitle: Text("OmarAli2000@gmail.com"),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.arrow_forward_ios),
+                        ),
                       ),
-                      title: Text(listTileData[index]["title"]!),
-                      // titleTextStyle: FontStyles.textStyle18,
-                      textColor: const Color(0xff575757),
-                      // subtitle: Text("OmarAli2000@gmail.com"),
-                      trailing:
-                          index < 8
-                              ? IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.arrow_forward_ios),
-                              )
-                              : null,
                     ),
                   );
                 },

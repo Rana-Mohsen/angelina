@@ -1,4 +1,5 @@
 import 'package:angelina/constants.dart';
+import 'package:angelina/core/services/local_storage/user_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -11,10 +12,31 @@ class UserInfo extends StatefulWidget {
 
 class _UserInfoState extends State<UserInfo> {
   bool isEditing = false;
-  TextEditingController nameController = TextEditingController(text: "rana");
-  TextEditingController emailController = TextEditingController(text: "email");
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+    @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
 
-  void toggleEdit() {
+  Future<void> _loadUserData() async {
+    String? savedName = await UserPreferences.loadName();
+    String? savedEmail = await UserPreferences.loadEmail();
+
+    setState(() {
+      nameController.text = savedName ?? "UserName"; 
+      emailController.text = savedEmail ?? "Email";
+    });
+  }
+  Future<void> _saveUserData() async {
+    await UserPreferences.saveName(nameController.text);
+    await UserPreferences.saveEmail(emailController.text);
+  }
+  void toggleEdit() async{
+    if (isEditing) {
+      await _saveUserData(); // Save when editing is finished
+    }
     setState(() {
       isEditing = !isEditing;
     });
