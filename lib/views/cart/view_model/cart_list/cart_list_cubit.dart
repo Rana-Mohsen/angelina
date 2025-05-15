@@ -85,4 +85,9 @@ class CartListCubit extends Cubit<CartListState> {
     }
     totalPrice = totalPrice.roundToDouble();
   }
+  bool isInCart(int productId) {
+    
+   
+    return cartList.any((item) => item.id == productId);
+  }
 }

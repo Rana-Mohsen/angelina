@@ -1,4 +1,3 @@
-
 import 'package:angelina/constants.dart';
 import 'package:angelina/core/utils/functions/snack_bar.dart';
 import 'package:angelina/core/widgets/cusrom_add_remove.dart';
@@ -38,6 +37,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         .join(', '); // Remove empty values
 
     return result;
+  }
+
+  late bool isEnabled;
+  @override
+  void initState() {
+    var cartCubit = BlocProvider.of<CartListCubit>(context);
+    isEnabled = cartCubit.isInCart(widget.product.id);
+    super.initState();
   }
 
   @override
@@ -137,10 +144,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                         SizedBox(
                           width: 55.w,
                           child: CustomButton(
-                            color: kGreenColor,
-                            text: "اضافة الى السلة",
+                            color: isEnabled?Colors.grey: kGreenColor,
+                            text: isEnabled? "إزالة من السلة":"اضافة الى السلة",
                             onTap: () {
-
                               _updateCart(context, widget.product);
                               setState(() {});
                             },
@@ -169,15 +175,18 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   }
 
   void _updateCart(BuildContext context, ProductModel product) {
-    int index = cartList.indexWhere((item) => item.id == product.id);
+    // int index = cartList.indexWhere((item) => item.id == product.id);
     var cartCubit = BlocProvider.of<CartListCubit>(context);
 
-    if (index != -1) {
-      cartList[index].count = product.count;
-      snackBarMessage(context, "تم تحديث المنتج فى السلة");
+    if (cartCubit.isInCart(product.id)) {
+      isEnabled = false;
+      cartCubit.removeProductFromCart(product);
+      //snackBarMessage(context, "تم تحديث المنتج فى السلة");
     } else {
+      isEnabled = true;
+
       cartCubit.addProductToCart(product);
-      snackBarMessage(context, "تم إضافة المنتج الى السلة");
+      //snackBarMessage(context, "تم إضافة المنتج الى السلة");
     }
   }
 }
