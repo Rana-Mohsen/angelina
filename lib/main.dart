@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _initializeServices() async {
     await NotificationService.initNotification();
     // final prefs = await SharedPreferences.getInstance();
-    // await prefs.remove('fav_items');
+    // await prefs.remove('order_items');
   }
 
   @override

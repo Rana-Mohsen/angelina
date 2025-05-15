@@ -14,7 +14,7 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       surfaceTintColor: Colors.white,
-      width: 20.w,
+      width: 40.w,
       child: Column(
         children: [const CustomDrawerHeader(), ..._buildDrawerItems(context)],
       ),
@@ -22,11 +22,23 @@ class HomeDrawer extends StatelessWidget {
   }
 
   final List<DrawerItemModel> drawerImages = const [
-    DrawerItemModel(icon: Icons.home_outlined, view: null),
-    DrawerItemModel(icon: Icons.favorite_border_outlined, view: null),
-    DrawerItemModel(icon: Icons.shopping_cart_outlined, view: null),
-    DrawerItemModel(icon: Icons.person_outline, view: null),
-    DrawerItemModel(icon: Icons.history, view: OrderHistoryView()),
+    DrawerItemModel(icon: Icons.home_outlined, view: null, title: "الرئيسية"),
+    DrawerItemModel(
+      icon: Icons.favorite_border_outlined,
+      view: null,
+      title: "المفضلة",
+    ),
+    DrawerItemModel(
+      icon: Icons.shopping_cart_outlined,
+      view: null,
+      title: "العربة",
+    ),
+    DrawerItemModel(icon: Icons.person_outline, view: null, title: "حسابى"),
+    DrawerItemModel(
+      icon: Icons.history,
+      view: OrderHistoryView(),
+      title: "الطلبات السابقة",
+    ),
   ];
 
   List<Widget> _buildDrawerItems(BuildContext context) {
@@ -46,6 +58,7 @@ class HomeDrawer extends StatelessWidget {
           }
         },
         icon: item.icon,
+        title: item.title,
       );
     }).toList();
   }

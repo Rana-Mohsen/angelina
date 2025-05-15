@@ -18,7 +18,7 @@ class OrderTile extends StatelessWidget {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ExpansionTile(
-        trailing: Icon(Icons.assignment_turned_in, size: 5.h),
+        trailing: Icon(Icons.assignment_turned_in, size: 7.h),
         leading: Icon(Icons.arrow_drop_down),
         title: Text(
           "التاريخ: ${order.date}",
@@ -34,7 +34,8 @@ class OrderTile extends StatelessWidget {
         ),
 
         textColor: Colors.black,
-        iconColor: kGreenColor,
+        iconColor: Color(0xffc6b399),
+        collapsedIconColor: kGreenColor,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -79,8 +80,8 @@ class OrderItems extends StatelessWidget {
           tileColor: Colors.white,
           shape: RoundedRectangleBorder(
             side: BorderSide(
-              color: Colors.grey,
-              width: 1,
+              color: Colors.black.withAlpha(25),
+              width: 1.5,
             ), // Border color & width
             borderRadius: BorderRadius.circular(10), // Rounded corners
           ),
@@ -92,7 +93,22 @@ class OrderItems extends StatelessWidget {
           title: Text(item.name),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Text("${item.price} ر.س"), Text("${item.count}x")],
+            children: [
+              Text(
+                "${item.price} ر.س",
+                style: TextStyle(
+                  color: kGreenColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Text(
+                "${item.count}x",
+                style: TextStyle(
+                  color: kGreenColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
         ),
       ),
