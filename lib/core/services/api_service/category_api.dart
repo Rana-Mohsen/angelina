@@ -35,11 +35,11 @@ class CategoryApi {
     }
   }
 
-  Future<Either<Failures, dynamic>> fetchOneCategory(int categoryId) async {
+  Future<Either<Failures, dynamic>> fetchOneCategory(int categoryId,int page) async {
     try {
       var data = await _api.get(
         url:
-            "${baseUrl}products?&category=$categoryId&per_page=100&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
+            "${baseUrl}products?&category=$categoryId&per_page=10&page=$page&consumer_key=ck_0e46d6f95c508e91ae3d99f64845cc3b6f5eb5e5&consumer_secret=cs_ab95108f084683daa92f347a81c6d7a5035435ac",
       );
 
       List<ProductModel> categories = [];

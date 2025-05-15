@@ -46,6 +46,7 @@ class _MoreProductsViewState extends State<MoreProductsView> {
                 context.read<ProductsCubit>().productList;
             bool isLoading = context.read<ProductsCubit>().isLoading;
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomHomeGrid(products: products),
                 isLoading

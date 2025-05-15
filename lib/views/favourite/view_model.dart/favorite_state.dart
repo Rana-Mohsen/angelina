@@ -6,7 +6,7 @@ abstract class FavoriteState {}
 class FavoriteInitial extends FavoriteState {}
 
 class FavoriteChanged extends FavoriteState {
-  final List<ProductModel> favList;
+  final Map<int,ProductModel> favList;
 
   FavoriteChanged(this.favList);
 }

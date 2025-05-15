@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> _initializeServices() async {
     await NotificationService.initNotification();
     // final prefs = await SharedPreferences.getInstance();
-    // await prefs.remove('order_items');
+    // await prefs.remove('fav_items');
   }
 
   @override

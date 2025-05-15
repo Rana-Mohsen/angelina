@@ -18,15 +18,15 @@ class OrderTile extends StatelessWidget {
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: ExpansionTile(
-        trailing: Icon(Icons.shopping_bag, size: 5.h),
+        trailing: Icon(Icons.assignment_turned_in, size: 5.h),
         leading: Icon(Icons.arrow_drop_down),
         title: Text(
           "التاريخ: ${order.date}",
           style: TextStyle(fontWeight: FontWeight.bold),
-          textAlign: TextAlign.right, // Align text to the right
+          textAlign: TextAlign.right,
         ),
         subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.end, // Align text to the right
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text("عدد المنتجات: ${order.quantity}"),
             Text("الإجمالى : ${order.totalPrice} ر.س"),

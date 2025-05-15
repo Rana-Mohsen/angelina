@@ -8,10 +8,9 @@ part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
   final ProductsApi _api;
-  List<ProductModel> productList = [];
-  String selectedCategory = 'All';
+  List< ProductModel> productList = [];
   int currentPage = 1;
-  bool isLoading = false; // Prevents multiple API calls
+  bool isLoading = false; 
 
   ProductsCubit(this._api) : super(ProductsInitial());
 
@@ -19,11 +18,9 @@ class ProductsCubit extends Cubit<ProductsState> {
     if (isLoading) return;
     isLoading = true;
     emit(ProductsLoading());
-    //await Future.delayed(Duration(milliseconds: 500));
-    //selectedCategory = category ?? 'All';
 
     var products = await _api.getProducts(currentPage);
-    // print("=======> $currentPage");
+
     products.fold(
       (failure) {
         isLoading = false;
@@ -31,40 +28,38 @@ class ProductsCubit extends Cubit<ProductsState> {
       },
       (newProducts) async {
         if (newProducts.isNotEmpty) {
-          List<ProductModel> favoriteList =
+          Map<int, ProductModel> favoriteMap =
               await FavoritesStorageService.loadFavorites();
 
-          // Mark products as favorite if they exist in the favorites list
           for (var product in newProducts) {
-            product.isFav = favoriteList.any((fav) => fav.id == product.id);
+            product.isFav = favoriteMap.containsKey(product.id);
           }
           productList.addAll(newProducts);
+
           if (currentPage < 6) {
             currentPage++;
           }
         }
         isLoading = false;
-        emit(ProductsSuccess(productList));
+        emit(ProductsSuccess(productList)); 
       },
     );
   }
 
   void toggleFavorite() async {
-    List<ProductModel> favoriteList =
+    Map<int, ProductModel> favoriteMap =
         await FavoritesStorageService.loadFavorites();
 
-    // Mark products as favorite if they exist in the favorites list
     for (var product in productList) {
-      product.isFav = favoriteList.any((fav) => fav.id == product.id);
+      product.isFav = favoriteMap.containsKey(product.id);
     }
-    emit(ProductsSuccess(productList));
+    emit(ProductsSuccess(productList)); 
   }
 
-  void updateProductButton(int productId, bool isEnabled) {
-  int index = productList.indexWhere((p) => p.id == productId);
-  if (index != -1) {
-    productList[index].buttonEnabled = isEnabled;
-    emit(ProductsSuccess(productList));
-  }
-}
+  // void updateProductButton(int productId, bool isEnabled) {
+  //   if (productList.containsKey(productId)) {
+  //     productList[productId]!.buttonEnabled = isEnabled;
+  //     emit(ProductsSuccess(productList));
+  //   }
+  // }
 }

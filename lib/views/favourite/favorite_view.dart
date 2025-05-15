@@ -37,7 +37,7 @@ class _FavoriteViewState extends State<FavoriteView> {
             return Center(child: Text("لا يوجد منتجات"));
           }
           if (state is FavoriteChanged) {
-            List<ProductModel> favList = state.favList;
+            List<ProductModel> favList = state.favList.values.toList();
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(

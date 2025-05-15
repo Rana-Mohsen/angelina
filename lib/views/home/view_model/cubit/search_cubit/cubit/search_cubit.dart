@@ -25,12 +25,11 @@ class SearchCubit extends Cubit<SearchState> {
       (products) async {
         List<ProductModel> searched = products;
         if (searched.isNotEmpty) {
-          List<ProductModel> favoriteList =
+          Map<int, ProductModel> favoriteMap =
               await FavoritesStorageService.loadFavorites();
 
-          // Mark products as favorite if they exist in the favorites list
           for (var product in searched) {
-            product.isFav = favoriteList.any((fav) => fav.id == product.id);
+            product.isFav = favoriteMap.containsKey(product.id);
           }
           // productList.addAll(searched);
           // if (currentPage < 6) {

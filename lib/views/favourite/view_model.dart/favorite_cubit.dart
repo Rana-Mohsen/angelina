@@ -12,7 +12,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   Future<void> favoritBody() async {
           emit(FavoriteLoading());
 
-    List<ProductModel> favList = await FavoritesStorageService.loadFavorites();
+    Map<int,ProductModel> favList = await FavoritesStorageService.loadFavorites();
     if (favList.isEmpty) {
       emit(FavoriteEmpty());
     } else {
