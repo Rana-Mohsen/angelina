@@ -83,6 +83,7 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               scaffoldBackgroundColor: Colors.white,
               fontFamily: 'ElMessiri',
+              indicatorColor: kGreenColor,
               appBarTheme: const AppBarTheme(
                 centerTitle: true,
                 scrolledUnderElevation: 0,
