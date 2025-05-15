@@ -3,24 +3,26 @@ class ProductModel {
   final String name;
   final String description;
   final String price;
+  final String dateCreated;
   final List<Category> categories;
   final List<ProductImage> images;
   final List<Attribute> attributes;
   int count;
   bool isFav;
-    bool buttonEnabled;
+  bool buttonEnabled;
 
   ProductModel({
     required this.id,
     required this.name,
     required this.description,
     required this.price,
+    required this.dateCreated,
     required this.categories,
     required this.images,
     required this.attributes,
     this.count = 1,
     this.isFav = false,
-    this.buttonEnabled = true
+    this.buttonEnabled = true,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -28,6 +30,7 @@ class ProductModel {
     name: json["name"],
     description: json["description"],
     price: json["price"],
+    dateCreated:json["date_created"],
     categories: List<Category>.from(
       json["categories"].map((x) => Category.fromJson(x)),
     ),
@@ -46,6 +49,7 @@ class ProductModel {
     "name": name,
     "description": description,
     "price": price,
+    "date_created":dateCreated,
     "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
     "images": List<dynamic>.from(images.map((x) => x.toJson())),
     "attributes": List<dynamic>.from(attributes.map((x) => x.toJson())),

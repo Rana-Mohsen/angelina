@@ -22,11 +22,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   Future<void> addFavorit(ProductModel product) async {
     // product.isFav = true;
-    NotificationService.showNotification(
-      id: 1,
-      title: 'Anglina',
-      body: 'added items to favorite 🎉',
-    );
+    // NotificationService.showNotification(
+    //   id: 1,
+    //   title: 'Anglina',
+    //   body: 'added items to favorite 🎉',
+    // );
 
     await FavoritesStorageService.addFavorite(product);
     // emit(FavoriteChanged());

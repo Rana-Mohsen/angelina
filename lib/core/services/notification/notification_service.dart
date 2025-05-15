@@ -1,5 +1,6 @@
 import 'package:angelina/constants.dart';
 import 'package:angelina/views/favourite/favorite_view.dart';
+import 'package:angelina/views/home/more_products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -20,7 +21,7 @@ class NotificationService {
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         if (response.payload != null) {
           navigatorKey.currentState?.push(
-            MaterialPageRoute(builder: (context) => FavoriteView()),
+            MaterialPageRoute(builder: (context) => MoreProductsView()),
           );
         }
       },
@@ -49,7 +50,7 @@ class NotificationService {
       title,
       body,
       notificationDetails,
-      payload: 'FavoriteView',
+      payload: 'moreView',
     );
   }
 }

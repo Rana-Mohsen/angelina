@@ -171,13 +171,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
   void _updateCart(BuildContext context, ProductModel product) {
     int index = cartList.indexWhere((item) => item.id == product.id);
     var cartCubit = BlocProvider.of<CartListCubit>(context);
-    // var productsCubit = BlocProvider.of<ProductsCubit>(context);
-    // productsCubit.updateProductButton(product.id, !product.buttonEnabled);
+
     if (index != -1) {
       cartList[index].count = product.count;
       snackBarMessage(context, "تم تحديث المنتج فى السلة");
     } else {
-      cartList.add(product);
+      cartCubit.addProductToCart(product);
       snackBarMessage(context, "تم إضافة المنتج الى السلة");
     }
   }

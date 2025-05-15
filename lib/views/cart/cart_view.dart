@@ -30,10 +30,7 @@ class _CartViewState extends State<CartView> {
                 }
                 return Expanded(
                   child: ListView.separated(
-                    // physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                   // clipBehavior: Clip.none,
-                    //physics: const NeverScrollableScrollPhysics(),
                     itemCount: cartList.length,
                     separatorBuilder: (context, index) => const SizedBox(),
 

@@ -1,4 +1,5 @@
 import 'package:angelina/core/services/local_storage/favorite_storage_service.dart';
+import 'package:angelina/core/services/notification/notification_service.dart';
 import 'package:angelina/models/home/product_model.dart';
 import 'package:angelina/core/services/api_service/products_api.dart';
 import 'package:bloc/bloc.dart';
@@ -28,6 +29,8 @@ class ProductsCubit extends Cubit<ProductsState> {
       },
       (newProducts) async {
         if (newProducts.isNotEmpty) {
+          _filterProductsAddedToday(newProducts);
+
           Map<int, ProductModel> favoriteMap =
               await FavoritesStorageService.loadFavorites();
 
@@ -55,6 +58,23 @@ class ProductsCubit extends Cubit<ProductsState> {
     }
     emit(ProductsSuccess(productList)); 
   }
+void _filterProductsAddedToday(List<ProductModel> products) {
+  DateTime today = DateTime.now();
+  String todayString = "${today.year}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')}";
+
+  var newProducts = products.where((product) {
+    String createdDate = product.dateCreated.split("T")[0]; 
+    return createdDate == todayString;
+  }).toList();
+
+  if (newProducts.isNotEmpty) {
+     NotificationService.showNotification(
+      id: 1,
+      title: 'Anglina',
+      body: 'new products added come check it out 🎉',
+    );
+  } 
+}
 
   // void updateProductButton(int productId, bool isEnabled) {
   //   if (productList.containsKey(productId)) {

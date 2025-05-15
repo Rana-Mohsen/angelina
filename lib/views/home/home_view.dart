@@ -6,8 +6,10 @@ import 'package:angelina/views/home/more_products_view.dart';
 import 'package:angelina/views/home/search_view.dart';
 import 'package:angelina/views/home/view_model/cubit/category_cubit/categories_cubit.dart';
 import 'package:angelina/views/home/view_model/cubit/products_cubit/products_cubit.dart';
+import 'package:angelina/views/home/widgets/custom_category_shimmer.dart';
 import 'package:angelina/views/home/widgets/custom_category_listview.dart';
 import 'package:angelina/views/home/widgets/custom_home_grid.dart';
+import 'package:angelina/views/home/widgets/custom_home_grid_shimmer.dart';
 import 'package:angelina/views/home/widgets/custom_slider.dart';
 import 'package:angelina/views/home/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                 BlocBuilder<CategoriesCubit, CategoriesState>(
                   builder: (context, state) {
                     if (state is CategoriesLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return CustomCategoryShimmer();
                     } else if (state is CategoriesError) {
                       return Text(state.errMessage);
                     }
@@ -154,7 +156,7 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     CustomHomeGrid(products: products),
                     state is ProductsLoading
-                        ? Center(child: CircularProgressIndicator())
+                        ? CustomHomeGridShimmer()
                         : SizedBox(),
                     //SizedBox(height: 10.h),
                   ],
