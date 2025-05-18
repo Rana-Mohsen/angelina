@@ -1,7 +1,6 @@
 # angelina
 
 ![bbd13b5d-c98f-4a37-bebd-1e22021589a9](https://github.com/user-attachments/assets/a2dc413e-e44b-41c7-83b1-6fc3d9b143fa)
-![Untitled design (2)](https://github.com/user-attachments/assets/cbc41e00-7584-4dd6-8c51-c64863a2559d)
 ![2f875cc0-ac7d-4d45-b8b6-3e9075b54c24](https://github.com/user-attachments/assets/7bf49a5e-a3fe-405f-b893-8588426b9efb)
 ![bbd13b5d-c98f-4a37-bebd-1e22021589a9](https://github.com/user-attachments/assets/17ebe57e-51cf-441e-84e6-7ebb10939cee)
 ![ee0b757c-aeb7-4ee9-aef8-c9182609d3f8](https://github.com/user-attachments/assets/f0911386-11fc-4ddc-bdad-962516ec8fad)
